@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".schedule.ImportChooseFragment">
+    tools:context=".ui.schedule.ImportChooseFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ib_close"
@@ -38,7 +38,7 @@
         android:lineSpacingExtra="4dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:text="已支持从两百多所学校的教务直接导入课程\n也可以去申请适配试试看:)"
+        android:text="已支持从两百多所学校的教务直接导入课程\n也可以去申请适配试试看"
         android:textSize="12sp" />
 
     <com.google.android.material.button.MaterialButton

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".schedule.DonateFragment">
+    tools:context=".ui.schedule.DonateFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ib_close"

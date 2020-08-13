@@ -5,7 +5,7 @@
     app:startDestination="@id/timeTableFragment">
     <fragment
         android:id="@+id/timeTableFragment"
-        android:name="com.suda.yzune.wakeupschedule.settings.TimeTableFragment"
+        android:name="com.suqir.wasaischedule.ui.settings.TimeTableFragment"
         android:label="选择时间表"
         tools:layout="@layout/time_table_fragment">
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/timeSettingsFragment"
-        android:name="com.suda.yzune.wakeupschedule.settings.TimeSettingsFragment"
+        android:name="com.suqir.wasaischedule.ui.settings.TimeSettingsFragment"
         android:label="设置时间"
         tools:layout="@layout/fragment_time_settings" />
 </navigation>

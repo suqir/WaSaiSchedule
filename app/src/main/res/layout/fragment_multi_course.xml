@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipChildren="false"
-    tools:context="com.suda.yzune.wakeupschedule.schedule.MultiCourseFragment">
+    tools:context=".ui.schedule.MultiCourseFragment">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

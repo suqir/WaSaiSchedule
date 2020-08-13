@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.suda.yzune.wakeupschedule.schedule_appwidget.WeekScheduleAppWidgetConfigActivity"
+    android:configure="com.suqir.wasaischedule.ui.schedule_appwidget.WeekScheduleAppWidgetConfigActivity"
     android:initialKeyguardLayout="@layout/today_course_app_widget"
     android:initialLayout="@layout/today_course_app_widget"
     android:minWidth="250dp"

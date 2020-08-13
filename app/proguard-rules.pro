@@ -251,14 +251,21 @@
     @android.webkit.JavascriptInterface <methods>;
 }
 
--keepclassmembers public class com.suda.yzune.wakeupschedule.schedule_import.**{
+-keepclassmembers public class com.suqir.wasaischedule.ui.schedule_import.**{
     <fields>;
     <methods>;
     public *;
     private *;
 }
 
--keepclassmembers public class com.suda.yzune.wakeupschedule.bean.**{
+-keepclassmembers public class com.suqir.wasaischedule.logic.bean.**{
+    <fields>;
+    <methods>;
+    public *;
+    private *;
+}
+
+-keep class com.suqir.wasaischedule.logic.model.**{
     <fields>;
     <methods>;
     public *;

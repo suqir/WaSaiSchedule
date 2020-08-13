@@ -5,7 +5,7 @@
     app:startDestination="@id/scheduleManageFragment">
     <fragment
         android:id="@+id/scheduleManageFragment"
-        android:name="com.suda.yzune.wakeupschedule.schedule_manage.ScheduleManageFragment"
+        android:name="com.suqir.wasaischedule.ui.schedule_manage.ScheduleManageFragment"
         android:label="多课表管理">
         <action
             android:id="@+id/scheduleManageFragment_to_courseManageFragment"
@@ -17,6 +17,6 @@
     </fragment>
     <fragment
         android:id="@+id/courseManageFragment"
-        android:name="com.suda.yzune.wakeupschedule.schedule_manage.CourseManageFragment"
+        android:name="com.suqir.wasaischedule.ui.schedule_manage.CourseManageFragment"
         android:label="课程管理" />
 </navigation>

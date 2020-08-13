@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context="com.suda.yzune.wakeupschedule.course_add.SelectWeekFragment">
+    tools:context=".ui.course_add.SelectWeekFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
         android:text="请选择周数"
         android:textStyle="bold" />
 
-    <com.suda.yzune.wakeupschedule.widget.SelectedRecyclerView
+    <com.suqir.wasaischedule.ui.widget.SelectedRecyclerView
         android:id="@+id/rv_week"
         android:layout_width="240dp"
         android:layout_height="wrap_content"

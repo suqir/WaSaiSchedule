@@ -15,7 +15,7 @@
         android:gravity="center"
         android:text="41C106" />
 
-    <com.suda.yzune.wakeupschedule.widget.RoomView
+    <com.suqir.wasaischedule.ui.widget.RoomView
         android:id="@+id/room_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -5,5 +5,5 @@
     android:id="@+id/rv_time_table"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".settings.TimeTableFragment"
+    tools:context=".ui.settings.TimeTableFragment"
     tools:listitem="@layout/item_time_table" />

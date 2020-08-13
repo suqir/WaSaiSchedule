@@ -4,6 +4,6 @@
     android:id="@+id/rv_time_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".settings.TimeSettingsFragment">
+    tools:context=".ui.settings.TimeSettingsFragment">
 
 </androidx.recyclerview.widget.RecyclerView>

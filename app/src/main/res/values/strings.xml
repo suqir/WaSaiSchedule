@@ -79,7 +79,7 @@
 
     <string name="setting_auto_check_update">自动检查更新</string>
     <string name="setting_show_day_widget_bg">显示日视图背景</string>
-    <string name="setting_show_suda_life">显示侧栏「苏大生活」</string>
+    <string name="setting_show_weike_life">显示「潍科生活」</string>
     <string name="setting_setup_schedule">设置当前课表</string>
     <string name="setting_day_night_theme">显示主题</string>
 
@@ -91,5 +91,7 @@
         <item>深色模式</item>
         <item>跟随系统</item>
     </string-array>
+
+    <string name="version_name">版本号%s</string>
 
 </resources>

@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context=".widget.colorpicker.ColorPickerFragment">
+    tools:context=".ui.widget.colorpicker.ColorPickerFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         android:text="选择颜色"
         android:textStyle="bold" />
 
-    <com.suda.yzune.wakeupschedule.widget.colorpicker.ColorPickerView
+    <com.suqir.wasaischedule.ui.widget.colorpicker.ColorPickerView
         android:id="@+id/cpv_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

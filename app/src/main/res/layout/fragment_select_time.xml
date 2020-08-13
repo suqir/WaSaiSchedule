@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
-    tools:context="com.suda.yzune.wakeupschedule.course_add.SelectTimeFragment">
+    tools:context=".ui.course_add.SelectTimeFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
