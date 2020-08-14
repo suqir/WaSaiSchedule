@@ -609,8 +609,7 @@ class ScheduleActivity : BaseActivity() {
                 Const.REQUEST_CODE_EXPORT -> {
                     anko_cl_schedule.longSnack("导出是否遇到了问题？") {
                         action("查看教程") {
-                            Utils.openUrl(this@ScheduleActivity, "" +
-                                    "/phone/191619/faqs/59883")
+                            Utils.openUrl(this@ScheduleActivity, "https://blog.suqir.xyz/")
                         }
                     }
                 }

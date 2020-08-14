@@ -140,7 +140,7 @@ class WebViewLoginFragment : BaseFragment() {
                 if (newProgress == 100) {
                     pb_load.progress = newProgress
                     pb_load.visibility = View.GONE
-                    // Toasty.info(activity!!, wv_course.url, Toast.LENGTH_LONG).show()
+                    // Toasty.info(requireActivity(), wv_course.url, Toast.LENGTH_LONG).show()
                 } else {
                     pb_load.progress = newProgress * 5
                     pb_load.visibility = View.VISIBLE
@@ -395,12 +395,12 @@ class WebViewLoginFragment : BaseFragment() {
                 launch {
                     try {
                         val result = viewModel.importSchedule(html)
-                        Toasty.success(activity!!,
+                        Toasty.success(requireActivity(),
                                 "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看").show()
-                        activity!!.setResult(RESULT_OK)
-                        activity!!.finish()
+                        requireActivity().setResult(RESULT_OK)
+                        requireActivity().finish()
                     } catch (e: Exception) {
-                        Toasty.error(activity!!,
+                        Toasty.error(requireActivity(),
                                 "导入失败>_<\n${e.message}", Toast.LENGTH_LONG).show()
                     }
                 }
@@ -412,11 +412,11 @@ class WebViewLoginFragment : BaseFragment() {
                                 type = if (viewModel.isUrp) "URP" else viewModel.schoolInfo[1],
                                 qq = viewModel.schoolInfo[2],
                                 html = html)
-                        Toasty.success(activity!!.applicationContext, "上传源码成功~请等待适配哦", Toast.LENGTH_LONG).show()
-                        activity!!.start<ApplyInfoActivity>()
-                        activity!!.finish()
+                        Toasty.success(requireActivity().applicationContext, "上传源码成功~请等待适配哦", Toast.LENGTH_LONG).show()
+                        requireActivity().start<ApplyInfoActivity>()
+                        requireActivity().finish()
                     } catch (e: Exception) {
-                        Toasty.error(activity!!.applicationContext, "上传失败>_<\n" + e.message, Toast.LENGTH_LONG).show()
+                        Toasty.error(requireActivity().applicationContext, "上传失败>_<\n" + e.message, Toast.LENGTH_LONG).show()
                     }
                 }
             }
