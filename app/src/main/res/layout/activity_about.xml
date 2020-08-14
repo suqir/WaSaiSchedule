@@ -47,7 +47,7 @@
         android:paddingLeft="48dp"
         android:paddingRight="48dp"
         android:paddingBottom="16dp"
-        android:text="本项目fork于WakeUp课程表\n项目开源地址\nhttps://github.com/suqir/WaSaiSchedule_Kotlin"
+        android:text="本项目fork于WakeUp课程表\n本项目开源地址\nhttps://github.com/suqir/WaSaiSchedule"
         android:textSize="12sp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

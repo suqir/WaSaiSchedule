@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_weike_life"
+    app:startDestination="@id/weikeLifeFragment">
+
+    <fragment
+        android:id="@+id/weikeLifeFragment"
+        android:name="com.suqir.wasaischedule.ui.weike_life.WeikeLifeFragment"
+        android:label="fragment_weike_life"
+        tools:layout="@layout/fragment_weike_life">
+        <action
+            android:id="@+id/action_weikeLifeFragment_to_studentScoreFragment"
+            app:destination="@id/studentScoreFragment" />
+        <action
+            android:id="@+id/action_weikeLifeFragment_to_YKTRecordFragment"
+            app:destination="@id/YKTRecordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/studentScoreFragment"
+        android:name="com.suqir.wasaischedule.ui.weike_life.score.StudentScoreFragment"
+        android:label="StudentScoreFragment" />
+
+    <fragment
+        android:id="@+id/YKTRecordFragment"
+        android:name="com.suqir.wasaischedule.ui.weike_life.ykt.YKTRecordFragment"
+        android:label="YKTRecordFragment" />
+</navigation>
