@@ -38,7 +38,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.logic.bean.TableBean
 import com.suqir.wasaischedule.logic.bean.TableSelectBean
-import com.suqir.wasaischedule.logic.model.UpdateInfoResponse
 import com.suqir.wasaischedule.ui.UpdateFragment
 import com.suqir.wasaischedule.ui.base_view.BaseActivity
 import com.suqir.wasaischedule.ui.course_add.AddCourseActivity
@@ -55,9 +54,6 @@ import it.sephiroth.android.library.xtooltip.Tooltip
 import kotlinx.android.synthetic.main.activity_schedule.*
 import kotlinx.android.synthetic.main.layout_bottom_sheet.*
 import kotlinx.coroutines.delay
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import splitties.activities.start
 import splitties.dimensions.dip
 import splitties.resources.styledDimenPxSize
@@ -127,15 +123,11 @@ class ScheduleActivity : BaseActivity() {
         }
 
         if (getPrefer().getBoolean(Const.KEY_CHECK_UPDATE, true)) {
-            viewModel.getUpdateInfo().enqueue(object : Callback<UpdateInfoResponse> {
-                override fun onFailure(call: Call<UpdateInfoResponse>?, t: Throwable?) {}
-
-                override fun onResponse(call: Call<UpdateInfoResponse>?, response: Response<UpdateInfoResponse>?) {
-                    val updateInfo = response?.body()
-                    if (updateInfo != null) {
-                        if (updateInfo.id > getVersionCode(this@ScheduleActivity.applicationContext)) {
-                            UpdateFragment.newInstance(updateInfo).show(supportFragmentManager, "updateDialog")
-                        }
+            viewModel.getUpdateInfo().observe(this, Observer { result ->
+                val updateInfo = result.getOrNull()
+                if (updateInfo != null) {
+                    if (updateInfo.id > getVersionCode(this@ScheduleActivity.applicationContext)) {
+                        UpdateFragment.newInstance(updateInfo).show(supportFragmentManager, "updateDialog")
                     }
                 }
             })
@@ -609,7 +601,7 @@ class ScheduleActivity : BaseActivity() {
                 Const.REQUEST_CODE_EXPORT -> {
                     anko_cl_schedule.longSnack("导出是否遇到了问题？") {
                         action("查看教程") {
-                            Utils.openUrl(this@ScheduleActivity, "https://blog.suqir.xyz/")
+                            Utils.openUrl(this@ScheduleActivity, "https://support.qq.com/products/191619/faqs/77270")
                         }
                     }
                 }
@@ -657,18 +649,23 @@ class ScheduleActivity : BaseActivity() {
             }
             REQUEST_CODE_CHOOSE_TABLE -> {
                 viewModel.table.timeTable = data!!.getIntExtra("selectedId", 1)
+                launch {
+                    viewModel.saveSettings()
+                    initView()
+                    bottomSheetDialog.dismiss()
+                }
             }
             REQUEST_CODE_CHOOSE_BG -> {
                 val uri = data?.data
                 if (uri != null) {
                     viewModel.table.background = uri.toString()
                 }
+                launch {
+                    viewModel.saveSettings()
+                    initView()
+                    bottomSheetDialog.dismiss()
+                }
             }
-        }
-        launch {
-            viewModel.saveSettings()
-            initView()
-            bottomSheetDialog.dismiss()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }

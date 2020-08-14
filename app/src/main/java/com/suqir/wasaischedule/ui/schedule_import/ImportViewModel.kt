@@ -1,21 +1,16 @@
 package com.suqir.wasaischedule.ui.schedule_import
 
 import android.app.Application
+import android.content.Context
 import android.net.Uri
 import android.util.SparseArray
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.suqir.wasaischedule.App
 import com.suqir.wasaischedule.logic.Repository
 import com.suqir.wasaischedule.logic.bean.*
 import com.suqir.wasaischedule.logic.database.AppDatabase
-import com.suqir.wasaischedule.logic.model.StudentScheduleResponse
-import com.suqir.wasaischedule.logic.model.TeacherScheduleResponse
-import com.suqir.wasaischedule.logic.model.WkStudentInfo
-import com.suqir.wasaischedule.logic.model.WkTeacherInfo
 import com.suqir.wasaischedule.ui.schedule_import.exception.NetworkErrorException
 import com.suqir.wasaischedule.ui.schedule_import.exception.PasswordErrorException
 import com.suqir.wasaischedule.ui.schedule_import.exception.UserNameErrorException
@@ -42,17 +37,6 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
     var importId = -1
     var school: String? = null
     var importType: String? = null
-    private val studentInfoLiveData = MutableLiveData<WkStudentInfo>()
-    private val teacherInfoLiveData = MutableLiveData<WkTeacherInfo>()
-    val studentScheduleLiveData = Transformations.switchMap(studentInfoLiveData) { info ->
-        Repository.getStudentSchedule(info.xh, info.xn, info.xq)
-    }
-    val teacherScheduleLiveData = Transformations.switchMap(teacherInfoLiveData) { info ->
-        Repository.getTeacherSchedule(info.gh, info.xn, info.xq)
-    }
-
-    suspend fun saveWeikeSchedule(responseList: List<StudentScheduleResponse.StudentCourseItem>) = Repository.saveWeikeSchedule(getApplication(), importId, newFlag, responseList)
-    suspend fun saveWeikeTeacherSchedule(responseList: List<TeacherScheduleResponse.TeacherCourseItem>) = Repository.saveWeikeSchedule(getApplication(), importId, newFlag, responseList)
 
     var newFlag = false
     var isUrp = false
@@ -111,15 +95,9 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
         } ?: throw Exception("请确保选择正确的教务类型，以及到达显示课程的页面")
     }
 
-    fun importStudentSchedule(xh: String, xn: String, xq: String) {
-        val wkInfo = WkStudentInfo(xh, xn, xq)
-        studentInfoLiveData.value = wkInfo
-    }
+    fun importStudentSchedule(context: Context, xh: String, xn: String, xq: String) = Repository.importStudentSchedule(context, xh, xn, xq, importId, newFlag)
 
-    fun importTeacherSchedule(gh: String, xn: String, xq: String) {
-        val wkInfo = WkTeacherInfo(gh, xn, xq)
-        teacherInfoLiveData.value = wkInfo
-    }
+    fun importTeacherSchedule(context: Context, gh: String, xn: String, xq: String) = Repository.importTeacherSchedule(context, gh, xn, xq, importId, newFlag)
 
     suspend fun getNewId(): Int {
         val lastId = tableDao.getLastId()

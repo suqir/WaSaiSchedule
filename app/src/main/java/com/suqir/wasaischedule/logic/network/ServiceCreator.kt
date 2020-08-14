@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  **/
 object ServiceCreator {
 
-    //    private const val BASE_URL = "https://i.wakeup.fun/"
+//        private const val BASE_URL = "https://i.wakeup.fun/"
     private const val BASE_URL = "https://schdule.suqir.xyz/"
     private const val WK_BASE_URL = "http://app.wfust.edu.cn/"
     private const val WK_JXZL_URL = "http://jxzl.wfust.edu.cn/"

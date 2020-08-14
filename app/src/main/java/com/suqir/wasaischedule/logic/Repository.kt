@@ -23,7 +23,10 @@ object Repository {
     private val tableDao = dataBase.tableDao()
     private val courseDao = dataBase.courseDao()
 
-    fun getUpdateInfo() = WaSaiNetwork.getUpdateInfo()
+    fun getUpdateInfo() = fire(Dispatchers.IO) {
+        val updateResponse = WaSaiNetwork.getUpdateInfo()
+        Result.success(updateResponse)
+    }
 
     fun getTeachers(searchName: String) = fire(Dispatchers.IO) {
         val accessResponse = WaSaiNetwork.getAccessToken("201701010101")
@@ -40,7 +43,7 @@ object Repository {
         }
     }
 
-    fun getStudentSchedule(xh: String, xn: String, xq: String) = fire(Dispatchers.IO) {
+    fun importStudentSchedule(context: Context, xh: String, xn: String, xq: String, tableId: Int, newFlag: Boolean) = fire(Dispatchers.IO) {
         var offset = 1
         val responseList = ArrayList<StudentScheduleResponse.StudentCourseItem>()
         var response = WaSaiNetwork.getStudentSchedule(xh, xn, xq, offset.toString())
@@ -51,13 +54,14 @@ object Repository {
                 response = WaSaiNetwork.getStudentSchedule(xh, xn, xq, offset.toString())
                 responseList.addAll(response.list)
             }
-            Result.success(responseList)
+            val result = saveWeikeSchedule(context, tableId, newFlag, responseList)
+            Result.success(result)
         } else {
             Result.failure(RuntimeException("操作失败"))
         }
     }
 
-    fun getTeacherSchedule(gh: String, xn: String, xq: String) = fire(Dispatchers.IO) {
+    fun importTeacherSchedule(context: Context, gh: String, xn: String, xq: String, tableId: Int, newFlag: Boolean) = fire(Dispatchers.IO) {
         var offset = 1
         val responseList = ArrayList<TeacherScheduleResponse.TeacherCourseItem>()
         var response = WaSaiNetwork.getTeacherSchedule(gh, xn, xq, offset.toString())
@@ -68,13 +72,15 @@ object Repository {
                 response = WaSaiNetwork.getTeacherSchedule(gh, xn, xq, offset.toString())
                 responseList.addAll(response.list)
             }
-            Result.success(responseList)
+            val result = saveWeikeSchedule(context, tableId, newFlag, responseList)
+            Result.success(result)
         } else {
             Result.failure(RuntimeException("操作失败"))
         }
     }
 
-    suspend fun <T> saveWeikeSchedule(context: Context, tableId: Int, newFlag: Boolean, responseList: T): Int {
+
+    private suspend fun <T> saveWeikeSchedule(context: Context, tableId: Int, newFlag: Boolean, responseList: T): Int {
         val weikeParser = WfustParser(responseList)
         return weikeParser.saveCourse(context, tableId) { baseList, detailList ->
             if (!newFlag) {

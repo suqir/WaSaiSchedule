@@ -23,7 +23,7 @@ object WaSaiNetwork {
     private val jxzlService = ServiceCreator.jxzlCreate<JxzlService>()
 
     // WaSaiSchedule部分
-    fun getUpdateInfo() = scheduleService.getUpdateInfo()
+    suspend fun getUpdateInfo() = scheduleService.getUpdateInfo().await()
     fun addCount(context: Context) {
         scheduleService.addCount().enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {

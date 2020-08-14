@@ -28,9 +28,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ScheduleViewModel(application: Application) : AndroidViewModel(application) {
-
-    fun getUpdateInfo() = Repository.getUpdateInfo()
-
     private val dataBase = AppDatabase.getDatabase(application)
     private val courseDao = dataBase.courseDao()
     private val tableDao = dataBase.tableDao()
@@ -52,6 +49,8 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     var mYear = 2018
     var mMonth = 9
     var mDay = 20
+
+    fun getUpdateInfo() = Repository.getUpdateInfo()
 
     fun initTableSelectList(): LiveData<List<TableSelectBean>> {
         return tableDao.getTableSelectListLiveData()

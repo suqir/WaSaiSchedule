@@ -17,10 +17,10 @@ interface ScheduleService {
     @GET("count")
     fun addCount(): Call<ResponseBody>
 
-    @GET("get_donate")
+    @GET("getDonate")
     fun getDonateList(): Call<ResponseBody>
 
-    @GET("getupdat")
+    @GET("getUpdate")
     fun getUpdateInfo(): Call<UpdateInfoResponse>
 
     @GET("count_html")

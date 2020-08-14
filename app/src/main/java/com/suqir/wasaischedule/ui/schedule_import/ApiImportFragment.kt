@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.observe
+import androidx.lifecycle.Observer
 import com.google.android.material.textfield.TextInputLayout
 import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.ui.base_view.BaseFragment
@@ -47,45 +46,7 @@ class ApiImportFragment : BaseFragment() {
             input_id.hint = "工号"
         }
         initEvent()
-        viewModel.studentScheduleLiveData.observe(viewLifecycleOwner) { result ->
-            val responseList = result.getOrNull()
-            launch {
-                if (responseList != null) {
-                    try {
-                        val result = viewModel.saveWeikeSchedule(responseList)
-                        showSuccess(result)
-                    } catch (e: Exception) {
-                        showError(e.message ?: "")
-                    }
-                } else {
-                    showError("请检查网络或者填写的信息有误")
-                }
-            }
-        }
 
-        viewModel.teacherScheduleLiveData.observe(viewLifecycleOwner) { result ->
-            val responseList = result.getOrNull()
-            launch {
-                if (responseList != null) {
-                    try {
-                        val result = viewModel.saveWeikeTeacherSchedule(responseList)
-                        showSuccess(result)
-                    } catch (e: Exception) {
-                        showError(e.message ?: "")
-                    }
-                } else {
-                    showError("请检查网络或者填写的信息有误")
-                }
-            }
-        }
-    }
-
-    private fun showError(errMsg: String) {
-        pb_loading.visibility = View.INVISIBLE
-        fab_submit.visibility = View.VISIBLE
-        Log.d("TAG", "showError: $errMsg")
-        Toasty.error(requireActivity(),
-                "导入失败\n${errMsg}", Toast.LENGTH_LONG).show()
     }
 
     private fun initEvent() {
@@ -117,7 +78,14 @@ class ApiImportFragment : BaseFragment() {
         wkId = et_id.text.toString().trim()
         year = et_year.text.toString().trim()
         term = et_term.text.toString().trim()
-        viewModel.importStudentSchedule(wkId, year, term)
+        viewModel.importStudentSchedule(requireContext(), wkId, year, term).observe(viewLifecycleOwner, Observer { result ->
+            val rowNum = result.getOrNull()
+            if (rowNum != null) {
+                showSuccess(rowNum)
+            } else {
+                showError("请检查信息是否有误")
+            }
+        })
     }
 
     private fun getTeacherSchedule() {
@@ -127,7 +95,14 @@ class ApiImportFragment : BaseFragment() {
         wkId = et_id.text.toString().trim()
         year = et_year.text.toString().trim()
         term = et_term.text.toString().trim()
-        viewModel.importTeacherSchedule(wkId, year, term)
+        viewModel.importTeacherSchedule(requireContext(), wkId, year, term).observe(viewLifecycleOwner, Observer { result ->
+            val rowNum = result.getOrNull()
+            if (rowNum != null) {
+                showSuccess(rowNum)
+            } else {
+                showError("请检查信息是否有误")
+            }
+        })
     }
 
     private fun hideIM() {
@@ -139,6 +114,13 @@ class ApiImportFragment : BaseFragment() {
         val intent = Intent().apply { putExtra("course_total", result) }
         requireActivity().setResult(Activity.RESULT_OK, intent)
         requireActivity().finish()
+    }
+
+    private fun showError(errMsg: String) {
+        pb_loading.visibility = View.INVISIBLE
+        fab_submit.visibility = View.VISIBLE
+        Toasty.error(requireActivity(),
+                "导入失败\n${errMsg}", Toast.LENGTH_LONG).show()
     }
 
     private fun TextInputLayout.showError(str: String, dur: Long = 3000) {

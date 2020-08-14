@@ -6,6 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class UpdateInfoResponse(
         val id: Int,
-        val VersionName: String,
-        val VersionInfo: String
+        val versionName: String,
+        val versionInfo: String,
+        val downloadUrl: String
 ) : Parcelable
