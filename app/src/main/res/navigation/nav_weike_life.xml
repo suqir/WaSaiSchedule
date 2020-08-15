@@ -12,19 +12,38 @@
         tools:layout="@layout/fragment_weike_life">
         <action
             android:id="@+id/action_weikeLifeFragment_to_studentScoreFragment"
-            app:destination="@id/studentScoreFragment" />
+            app:destination="@id/studentScoreFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <action
             android:id="@+id/action_weikeLifeFragment_to_YKTRecordFragment"
-            app:destination="@id/YKTRecordFragment" />
+            app:destination="@id/YKTRecordFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_weikeLifeFragment_to_xghFragment"
+            app:destination="@id/xghFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
         android:id="@+id/studentScoreFragment"
         android:name="com.suqir.wasaischedule.ui.weike_life.score.StudentScoreFragment"
-        android:label="StudentScoreFragment" />
+        android:label="学生成绩" />
 
     <fragment
         android:id="@+id/YKTRecordFragment"
         android:name="com.suqir.wasaischedule.ui.weike_life.ykt.YKTRecordFragment"
-        android:label="YKTRecordFragment" />
+        android:label="一卡通记录" />
+    <fragment
+        android:id="@+id/xghFragment"
+        android:name="com.suqir.wasaischedule.ui.weike_life.xgh.XghFragment"
+        android:label="工号" />
 </navigation>

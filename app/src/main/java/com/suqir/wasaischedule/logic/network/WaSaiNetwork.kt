@@ -1,6 +1,7 @@
 package com.suqir.wasaischedule.logic.network
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.edit
 import com.suqir.wasaischedule.utils.Const
 import com.suqir.wasaischedule.utils.getPrefer
@@ -39,7 +40,7 @@ object WaSaiNetwork {
     // 潍坊科技学院专用
     suspend fun getStudentSchedule(xh: String, xn: String, xq: String, offset: String) = wkService.getStudentSchedule(xh, xn, xq, offset).await()
     suspend fun getTeacherSchedule(gh: String, xn: String, xq: String, offset: String) = wkService.getTeacherSchedule(gh, xn, xq, offset).await()
-    suspend fun getStudentScore(xh: String, xn: String, xq: String) = wkService.getStudentScore(xh, xn, xq).await()
+    suspend fun getStudentScore(xh: String, xn: String, xq: String, offset: String) = wkService.getStudentScore(xh, xn, xq, offset).await()
     suspend fun getYktRecord(xgh: String, limit: String, offset: String) = wkService.getYktRecord(xgh, limit, offset).await()
 
     suspend fun getAccessToken(userName: String) = jxzlService.getAccessToken(userName).await()
@@ -50,6 +51,7 @@ object WaSaiNetwork {
             enqueue(object : Callback<T> {
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     continuation.resumeWithException(t)
+                    Log.d("TAG", "onFailure: ${t.message}")
                 }
 
                 override fun onResponse(call: Call<T>, response: Response<T>) {

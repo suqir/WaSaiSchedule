@@ -23,8 +23,8 @@ import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.logic.bean.TableBean
 import com.suqir.wasaischedule.logic.bean.TableSelectBean
 import com.suqir.wasaischedule.ui.DonateActivity
+import com.suqir.wasaischedule.ui.DonateFragment
 import com.suqir.wasaischedule.ui.base_view.BaseListActivity
-import com.suqir.wasaischedule.ui.schedule.DonateFragment
 import com.suqir.wasaischedule.ui.schedule_manage.ScheduleManageActivity
 import com.suqir.wasaischedule.ui.settings.SettingItemAdapter
 import com.suqir.wasaischedule.ui.settings.TimeSettingsActivity

@@ -10,14 +10,14 @@ data class StudentScoreResponse(
         val total: Int,
         val pageCount: Int,
         val curPage: Int,
-        val totalPage: Int,
+        val totalPages: Int,
         val list: List<ScoreItem>
 ) {
     data class ScoreItem(
             val kccj: String,
             val kch: String,
             val ksfs: String,
-            val xf: Int,
+            val xf: Float,
             val xh: String,
             val xn: String,
             val xq: String,

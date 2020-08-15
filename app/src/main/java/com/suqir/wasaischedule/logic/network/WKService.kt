@@ -21,7 +21,7 @@ interface WKService {
     fun getTeacherSchedule(@Query("gh") gh: String, @Query("xn") xn: String, @Query("xq") xq: String, @Query("offset") offset: String): Call<TeacherScheduleResponse>
 
     @GET("interface/rest/http/data_zhwk/zhwk_xscj.htm")
-    fun getStudentScore(@Query("xh") xh: String, @Query("xn") xn: String, @Query("xq") xq: String): Call<StudentScoreResponse>
+    fun getStudentScore(@Query("xh") xh: String, @Query("xn") xn: String, @Query("xq") xq: String, @Query("offset") offset: String): Call<StudentScoreResponse>
 
     @GET("interface/rest/http/data_zhwk/zhwk_yktxf.htm")
     fun getYktRecord(@Query("xgh") xgh: String, @Query("limit") limit: String, @Query("offset") offset: String): Call<YktRecordResponse>

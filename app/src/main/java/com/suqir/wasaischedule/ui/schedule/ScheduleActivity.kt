@@ -38,6 +38,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.logic.bean.TableBean
 import com.suqir.wasaischedule.logic.bean.TableSelectBean
+import com.suqir.wasaischedule.ui.DonateFragment
 import com.suqir.wasaischedule.ui.UpdateFragment
 import com.suqir.wasaischedule.ui.base_view.BaseActivity
 import com.suqir.wasaischedule.ui.course_add.AddCourseActivity

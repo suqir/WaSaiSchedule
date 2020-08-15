@@ -121,8 +121,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-28" />
-                            <option name="y" value="452" />
+                            <option name="x" value="11" />
+                            <option name="y" value="510" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -133,8 +133,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-34" />
-                            <option name="y" value="-12" />
+                            <option name="x" value="-245" />
+                            <option name="y" value="-80" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -161,7 +161,24 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_weikeLifeFragment_to_xghFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="xghFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="49" />
+                            <option name="y" value="125" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

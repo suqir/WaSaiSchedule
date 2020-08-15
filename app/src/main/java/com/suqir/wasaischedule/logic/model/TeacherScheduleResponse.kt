@@ -10,7 +10,7 @@ data class TeacherScheduleResponse(
         val total: Int,
         val pageCount: Int,
         val curPage: Int,
-        val totalPage: Int,
+        val totalPages: Int,
         val list: List<TeacherCourseItem>
 ) {
     data class TeacherCourseItem(

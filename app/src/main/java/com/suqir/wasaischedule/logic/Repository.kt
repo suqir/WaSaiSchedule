@@ -6,6 +6,7 @@ import com.suqir.wasaischedule.App.Companion.context
 import com.suqir.wasaischedule.logic.bean.TableBean
 import com.suqir.wasaischedule.logic.database.AppDatabase
 import com.suqir.wasaischedule.logic.model.StudentScheduleResponse
+import com.suqir.wasaischedule.logic.model.StudentScoreResponse
 import com.suqir.wasaischedule.logic.model.TeacherScheduleResponse
 import com.suqir.wasaischedule.logic.network.WaSaiNetwork
 import com.suqir.wasaischedule.ui.schedule_import.parser.WfustParser
@@ -28,33 +29,64 @@ object Repository {
         Result.success(updateResponse)
     }
 
-    fun getTeachers(searchName: String) = fire(Dispatchers.IO) {
-        val accessResponse = WaSaiNetwork.getAccessToken("201701010101")
-        if (accessResponse.msg == "操作成功") {
-            val accessToken = accessResponse.data.accessToken
-            val response = WaSaiNetwork.getTeachers(searchName, accessToken)
+    fun getStudentScore(xh: String, xn: String, xq: String) = fire(Dispatchers.IO) {
+        var offset = 1
+        var needExit = false
+        val scoreList = ArrayList<StudentScoreResponse.ScoreItem>()
+
+        while (!needExit) {
+            val response = WaSaiNetwork.getStudentScore(xh, xn, xq, offset.toString())
             if (response.msg == "操作成功") {
-                Result.success(response.data.teachers)
+                scoreList.addAll(response.list).also { offset++ }
+                needExit = (response.totalPages == response.curPage)
             } else {
-                Result.failure(RuntimeException("操作失败"))
+                break
             }
+        }
+        if (needExit) {
+            Result.success(scoreList)
         } else {
             Result.failure(RuntimeException("操作失败"))
         }
     }
 
+    fun getTeachersLiveData(query: String) = fire(Dispatchers.IO) {
+        val accessToken = getAccessToken()
+        if (accessToken.isNotEmpty()) {
+            val teachersResponse = WaSaiNetwork.getTeachers(query, accessToken)
+            if (teachersResponse.msg == "操作成功") {
+                Result.success(teachersResponse.data.teachers)
+            } else {
+                Result.failure(RuntimeException("操作失败"))
+            }
+        } else {
+            Result.failure(RuntimeException("access_token is null"))
+        }
+    }
+
+    private suspend fun getAccessToken(username: String = "201701010101"): String {
+        val accessToken = WaSaiNetwork.getAccessToken(username)
+        return accessToken.data.accessToken
+    }
+
     fun importStudentSchedule(context: Context, xh: String, xn: String, xq: String, tableId: Int, newFlag: Boolean) = fire(Dispatchers.IO) {
         var offset = 1
-        val responseList = ArrayList<StudentScheduleResponse.StudentCourseItem>()
-        var response = WaSaiNetwork.getStudentSchedule(xh, xn, xq, offset.toString())
-        if (response.msg == "操作成功") {
-            tableName = response.list[0].xm
-            responseList.addAll(response.list).also { offset++ }
-            for (page in offset..response.totalPage) {
-                response = WaSaiNetwork.getStudentSchedule(xh, xn, xq, offset.toString())
-                responseList.addAll(response.list)
+        var needExit = false
+        val courseList = ArrayList<StudentScheduleResponse.StudentCourseItem>()
+
+        while (!needExit) {
+            val response = WaSaiNetwork.getStudentSchedule(xh, xn, xq, offset.toString())
+            if (response.msg == "操作成功") {
+                tableName = response.list[0].xm
+                courseList.addAll(response.list).also { offset++ }
+                needExit = response.totalPages == response.curPage
+            } else {
+                break
             }
-            val result = saveWeikeSchedule(context, tableId, newFlag, responseList)
+        }
+
+        if (needExit) {
+            val result = saveWeikeSchedule(context, tableId, newFlag, courseList)
             Result.success(result)
         } else {
             Result.failure(RuntimeException("操作失败"))
@@ -62,21 +94,29 @@ object Repository {
     }
 
     fun importTeacherSchedule(context: Context, gh: String, xn: String, xq: String, tableId: Int, newFlag: Boolean) = fire(Dispatchers.IO) {
+
         var offset = 1
-        val responseList = ArrayList<TeacherScheduleResponse.TeacherCourseItem>()
-        var response = WaSaiNetwork.getTeacherSchedule(gh, xn, xq, offset.toString())
-        if (response.msg == "操作成功") {
-            tableName = response.list[0].jsxm
-            responseList.addAll(response.list).also { offset++ }
-            for (page in offset..response.totalPage) {
-                response = WaSaiNetwork.getTeacherSchedule(gh, xn, xq, offset.toString())
-                responseList.addAll(response.list)
+        var needExit = false
+        val courseList = ArrayList<TeacherScheduleResponse.TeacherCourseItem>()
+
+        while (!needExit) {
+            val response = WaSaiNetwork.getTeacherSchedule(gh, xn, xq, offset.toString())
+            if (response.msg == "操作成功") {
+                tableName = response.list[0].jsxm
+                courseList.addAll(response.list).also { offset++ }
+                needExit = response.totalPages == response.curPage
+            } else {
+                break
             }
-            val result = saveWeikeSchedule(context, tableId, newFlag, responseList)
+        }
+
+        if (needExit) {
+            val result = saveWeikeSchedule(context, tableId, newFlag, courseList)
             Result.success(result)
         } else {
             Result.failure(RuntimeException("操作失败"))
         }
+
     }
 
 

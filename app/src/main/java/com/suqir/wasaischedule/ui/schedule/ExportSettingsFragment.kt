@@ -7,7 +7,6 @@ import androidx.fragment.app.activityViewModels
 import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.ui.base_view.BaseDialogFragment
 import com.suqir.wasaischedule.utils.Const
-import com.suqir.wasaischedule.utils.Utils
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_export_settings.*
 
@@ -42,7 +41,7 @@ class ExportSettingsFragment : BaseDialogFragment() {
         }
 
         tv_export_ics.setOnLongClickListener {
-            Utils.openUrl(requireActivity(), "https://www.jianshu.com/p/de3524cbe8aa")
+//            Utils.openUrl(requireActivity(), "https://www.jianshu.com/p/de3524cbe8aa")
             return@setOnLongClickListener true
         }
 

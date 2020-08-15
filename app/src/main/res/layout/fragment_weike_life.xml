@@ -141,8 +141,57 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:gravity="center"
-                android:text="根据学号进行校园一卡通消费记录明细查询根据学号进行校园一卡通消费记录明细查询根据学号进行校园一卡通消费记录明细查询"
+                android:text="根据学号进行校园一卡通消费记录明细查询"
                 android:textColor="#ffffffff" />
         </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_cpdaily_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:stateListAnimator="@animator/item_raise"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/weike_life_sign_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="今日校园签到"
+                android:textColor="#ffffffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#ffffffff" />
+
+            <TextView
+                android:id="@+id/weike_life_sign_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:text="服务器自动监控今日校园签到任务，根据预先设置的位置信息进行自动签到"
+                android:textColor="#ffffffff" />
+        </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>
