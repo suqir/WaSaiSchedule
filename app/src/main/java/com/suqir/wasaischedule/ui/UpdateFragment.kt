@@ -15,7 +15,7 @@ class UpdateFragment : BaseDialogFragment() {
     override val layoutId: Int
         get() = R.layout.fragment_update
 
-    private lateinit var updateInfo: UpdateInfoResponse
+    private lateinit var updateInfo: UpdateInfoResponse.UpdateInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,8 +27,8 @@ class UpdateFragment : BaseDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tv_old_version.text = "当前版本：" + UpdateUtils.getVersionName(requireContext().applicationContext)
-        tv_new_version.text = "最新版本：" + updateInfo.versionName
-        tv_info.text = updateInfo.versionInfo
+        tv_new_version.text = "最新版本：" + updateInfo.version_name
+        tv_info.text = updateInfo.version_info
         tv_visit.setOnClickListener {
 //            if (BuildConfig.CHANNEL == "google") {
 //                try {
@@ -42,7 +42,7 @@ class UpdateFragment : BaseDialogFragment() {
 //            } else {
             val intent = Intent()
             intent.action = "android.intent.action.VIEW"
-            val contentUrl = Uri.parse(updateInfo.downloadUrl)
+            val contentUrl = Uri.parse(updateInfo.download_url)
             intent.data = contentUrl
             requireContext().startActivity(intent)
 //            }
@@ -55,7 +55,7 @@ class UpdateFragment : BaseDialogFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(arg: UpdateInfoResponse) =
+        fun newInstance(arg: UpdateInfoResponse.UpdateInfo) =
                 UpdateFragment().apply {
                     arguments = Bundle().apply {
                         putParcelable("updateInfo", arg)

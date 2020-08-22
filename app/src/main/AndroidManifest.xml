@@ -96,7 +96,7 @@
             android:name="com.suqir.wasaischedule.ui.intro.AboutActivity"
             android:label="关于" />
         <activity
-            android:name="com.suqir.wasaischedule.ui.DonateActivity"
+            android:name="com.suqir.wasaischedule.ui.donate.DonateActivity"
             android:label="捐赠" />
         <activity
             android:name="com.suqir.wasaischedule.ui.apply_info.ApplyInfoActivity"

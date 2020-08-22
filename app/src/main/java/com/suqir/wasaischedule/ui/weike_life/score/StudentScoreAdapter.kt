@@ -13,7 +13,8 @@ import com.suqir.wasaischedule.logic.model.StudentScoreResponse
 class StudentScoreAdapter(layoutResId: Int, data: MutableList<StudentScoreResponse.ScoreItem>) : BaseQuickAdapter<StudentScoreResponse.ScoreItem, BaseViewHolder>(layoutResId, data) {
     override fun convert(helper: BaseViewHolder, item: StudentScoreResponse.ScoreItem?) {
         if (item == null) return
-        helper.setText(R.id.tv_teacher, item.kcmc)
-        helper.setText(R.id.tv_gh, item.kccj)
+        helper.setText(R.id.tv_name, item.kcmc)
+        helper.setText(R.id.tv_credit, item.xf.toString())
+        helper.setText(R.id.tv_score, item.kccj)
     }
 }

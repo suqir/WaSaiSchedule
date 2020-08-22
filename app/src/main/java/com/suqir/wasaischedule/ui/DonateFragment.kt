@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.suqir.wasaischedule.BuildConfig
 import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.ui.base_view.BaseDialogFragment
+import com.suqir.wasaischedule.ui.donate.DonateActivity
 import com.suqir.wasaischedule.utils.CourseUtils
 import com.suqir.wasaischedule.utils.DonateUtils
 import es.dmoral.toasty.Toasty

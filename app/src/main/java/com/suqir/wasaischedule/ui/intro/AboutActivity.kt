@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.widget.AppCompatTextView
 import com.suqir.wasaischedule.BuildConfig
 import com.suqir.wasaischedule.R
-import com.suqir.wasaischedule.ui.DonateActivity
 import com.suqir.wasaischedule.ui.base_view.BaseBlurTitleActivity
+import com.suqir.wasaischedule.ui.donate.DonateActivity
 import com.suqir.wasaischedule.utils.UpdateUtils
 import kotlinx.android.synthetic.main.activity_about.*
 import splitties.activities.start

@@ -21,8 +21,8 @@ import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.logic.dao.AppWidgetDao
 import com.suqir.wasaischedule.logic.dao.TableDao
 import com.suqir.wasaischedule.logic.database.AppDatabase
-import com.suqir.wasaischedule.ui.DonateActivity
 import com.suqir.wasaischedule.ui.base_view.BaseListActivity
+import com.suqir.wasaischedule.ui.donate.DonateActivity
 import com.suqir.wasaischedule.ui.schedule_settings.ScheduleSettingsActivity
 import com.suqir.wasaischedule.ui.settings.items.*
 import com.suqir.wasaischedule.ui.widget.colorpicker.ColorPickerFragment

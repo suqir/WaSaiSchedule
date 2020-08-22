@@ -119,15 +119,15 @@ class ScheduleActivity : BaseActivity() {
             }
         }
 
-        if (!getPrefer().getBoolean(Const.KEY_HAS_COUNT, false)) {
-            MyRetrofitUtils.instance.addCount(applicationContext)
-        }
+//        if (!getPrefer().getBoolean(Const.KEY_HAS_COUNT, false)) {
+//            MyRetrofitUtils.instance.addCount(applicationContext)
+//        }
 
         if (getPrefer().getBoolean(Const.KEY_CHECK_UPDATE, true)) {
             viewModel.getUpdateInfo().observe(this, Observer { result ->
                 val updateInfo = result.getOrNull()
                 if (updateInfo != null) {
-                    if (updateInfo.id > getVersionCode(this@ScheduleActivity.applicationContext)) {
+                    if (updateInfo.version_code > getVersionCode(this@ScheduleActivity.applicationContext)) {
                         UpdateFragment.newInstance(updateInfo).show(supportFragmentManager, "updateDialog")
                     }
                 }

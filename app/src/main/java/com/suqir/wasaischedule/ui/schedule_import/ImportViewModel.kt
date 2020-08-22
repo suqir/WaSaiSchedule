@@ -3,6 +3,7 @@ package com.suqir.wasaischedule.ui.schedule_import
 import android.app.Application
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.util.SparseArray
 import androidx.lifecycle.AndroidViewModel
 import com.google.gson.Gson
@@ -20,7 +21,6 @@ import com.suqir.wasaischedule.ui.schedule_import.parser.qz.QzBrParser
 import com.suqir.wasaischedule.ui.schedule_import.parser.qz.QzCrazyParser
 import com.suqir.wasaischedule.ui.schedule_import.parser.qz.QzParser
 import com.suqir.wasaischedule.ui.schedule_import.parser.qz.QzWithNodeParser
-import com.suqir.wasaischedule.utils.MyRetrofitUtils
 import com.suqir.wasaischedule.utils.ViewUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -53,7 +53,7 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
     private val timeTableDao = dataBase.timeTableDao()
     private val timeDetailDao = dataBase.timeDetailDao()
 
-    var schoolInfo = Array(3) { "" }
+    var schoolInfo = Array(3) { "未填" }
 
     private val baseList = arrayListOf<CourseBaseBean>()
     private val detailList = arrayListOf<CourseDetailBean>()
@@ -693,11 +693,9 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
         return value
     }
 
-    suspend fun postHtml(school: String, type: String, html: String, qq: String) {
-        val response = withContext(Dispatchers.IO) {
-            MyRetrofitUtils.instance.getService().postHtml(school, type, html, qq).execute()
-        }
-        if (!response.isSuccessful) throw Exception(response.message())
+    fun postHtml(school: String, type: String, html: String, qq: String) {
+        Log.d("TAG", "postHtml: $school\n$type\n$html\n$qq")
+        Repository.postHtml(school, type, html, qq)
     }
 
     suspend fun importFromFile(uri: Uri?) {

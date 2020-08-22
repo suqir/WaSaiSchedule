@@ -1,6 +1,7 @@
 package com.suqir.wasaischedule.logic
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.liveData
 import com.suqir.wasaischedule.App.Companion.context
 import com.suqir.wasaischedule.logic.bean.TableBean
@@ -25,8 +26,36 @@ object Repository {
     private val courseDao = dataBase.courseDao()
 
     fun getUpdateInfo() = fire(Dispatchers.IO) {
-        val updateResponse = WaSaiNetwork.getUpdateInfo()
-        Result.success(updateResponse)
+        val response = WaSaiNetwork.getUpdateInfo()
+        if (response.status == "success") {
+            Result.success(response.data)
+        } else {
+            Result.failure(RuntimeException("获取失败"))
+        }
+    }
+
+    fun getDonateList() = fire(Dispatchers.IO) {
+        val response = WaSaiNetwork.getDonateList()
+        if (response.status == "success") {
+            Result.success(response.data)
+        } else {
+            Result.failure(RuntimeException("获取失败"))
+        }
+    }
+
+    fun postHtml(school: String, type: String, html: String, qq: String) = fire(Dispatchers.IO) {
+        Log.d("TAG", "postHtml: $school\n$type\n$html\n$qq")
+        val response = WaSaiNetwork.postHtml(school, type, html, qq)
+        Result.success(response)
+    }
+
+    fun getApplySchool() = fire(Dispatchers.IO) {
+        val response = WaSaiNetwork.getApplySchool()
+        if (response.status == "success") {
+            Result.success(response.data)
+        } else {
+            Result.failure(RuntimeException("获取失败"))
+        }
     }
 
     fun getStudentScore(xh: String, xn: String, xq: String) = fire(Dispatchers.IO) {
@@ -36,7 +65,7 @@ object Repository {
 
         while (!needExit) {
             val response = WaSaiNetwork.getStudentScore(xh, xn, xq, offset.toString())
-            if (response.msg == "操作成功") {
+            if (response.list.isNotEmpty()) {
                 scoreList.addAll(response.list).also { offset++ }
                 needExit = (response.totalPages == response.curPage)
             } else {
@@ -50,11 +79,21 @@ object Repository {
         }
     }
 
+    fun getYktRecordLiveData(xgh: String, offset: String) = fire(Dispatchers.IO) {
+        val response = WaSaiNetwork.getYktRecord(xgh, offset)
+        if (response.list.isNotEmpty()) {
+            Result.success(response)
+        } else {
+            Result.failure(RuntimeException("列表为空"))
+        }
+
+    }
+
     fun getTeachersLiveData(query: String) = fire(Dispatchers.IO) {
         val accessToken = getAccessToken()
         if (accessToken.isNotEmpty()) {
             val teachersResponse = WaSaiNetwork.getTeachers(query, accessToken)
-            if (teachersResponse.msg == "操作成功") {
+            if (teachersResponse.data.teachers.isNotEmpty()) {
                 Result.success(teachersResponse.data.teachers)
             } else {
                 Result.failure(RuntimeException("操作失败"))
@@ -76,7 +115,7 @@ object Repository {
 
         while (!needExit) {
             val response = WaSaiNetwork.getStudentSchedule(xh, xn, xq, offset.toString())
-            if (response.msg == "操作成功") {
+            if (response.list.isNotEmpty()) {
                 tableName = response.list[0].xm
                 courseList.addAll(response.list).also { offset++ }
                 needExit = response.totalPages == response.curPage
@@ -101,7 +140,7 @@ object Repository {
 
         while (!needExit) {
             val response = WaSaiNetwork.getTeacherSchedule(gh, xn, xq, offset.toString())
-            if (response.msg == "操作成功") {
+            if (response.list.isNotEmpty()) {
                 tableName = response.list[0].jsxm
                 courseList.addAll(response.list).also { offset++ }
                 needExit = response.totalPages == response.curPage

@@ -3,12 +3,12 @@ package com.suqir.wasaischedule.ui.apply_info
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.suqir.wasaischedule.R
-import com.suqir.wasaischedule.logic.bean.HtmlCountBean
+import com.suqir.wasaischedule.logic.model.ApplySchoolResponse
 
-class ApplyInfoAdapter(layoutResId: Int, data: MutableList<HtmlCountBean>) :
-        BaseQuickAdapter<HtmlCountBean, BaseViewHolder>(layoutResId, data) {
+class ApplyInfoAdapter(layoutResId: Int, data: MutableList<ApplySchoolResponse.ApplySchool>) :
+        BaseQuickAdapter<ApplySchoolResponse.ApplySchool, BaseViewHolder>(layoutResId, data) {
 
-    override fun convert(helper: BaseViewHolder, item: HtmlCountBean?) {
+    override fun convert(helper: BaseViewHolder, item: ApplySchoolResponse.ApplySchool?) {
         if (item == null) return
         helper.setVisible(R.id.ll_detail, true)
         helper.setVisible(R.id.ll_detail_num, true)

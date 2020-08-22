@@ -1,5 +1,7 @@
 package com.suqir.wasaischedule.logic.network
 
+import com.suqir.wasaischedule.logic.model.ApplySchoolResponse
+import com.suqir.wasaischedule.logic.model.DonateResponse
 import com.suqir.wasaischedule.logic.model.UpdateInfoResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -14,23 +16,30 @@ import retrofit2.http.HTTP
  * Desc: 哇噻课程表API接口
  **/
 interface ScheduleService {
-    @GET("count")
-    fun addCount(): Call<ResponseBody>
 
-    @GET("getDonate")
-    fun getDonateList(): Call<ResponseBody>
+    @GET("v1/donates")
+    fun getDonateList(): Call<DonateResponse>
 
-    @GET("getUpdate")
+    @GET("v1/update")
     fun getUpdateInfo(): Call<UpdateInfoResponse>
 
-    @GET("count_html")
-    fun getHtmlCount(): Call<ResponseBody>
+    @GET("v1/applies")
+    fun getApplySchool(): Call<ApplySchoolResponse>
 
-    @HTTP(method = "POST", path = "apply_html", hasBody = true)
+    @HTTP(method = "POST", path = "v1/apply", hasBody = true)
     @FormUrlEncoded
     fun postHtml(@Field("school") school: String,
                  @Field("type") type: String,
                  @Field("html") html: String,
                  @Field("qq") qq: String
+    ): Call<ResponseBody>
+
+    @HTTP(method = "POST", path = "v1/apply", hasBody = true)
+    @FormUrlEncoded
+    fun addHtml(@Field("school") school: String,
+                @Field("type") type: String,
+                @Field("html") html: String,
+                @Field("qq") qq: String,
+                @Field("count") count: Int
     ): Call<ResponseBody>
 }

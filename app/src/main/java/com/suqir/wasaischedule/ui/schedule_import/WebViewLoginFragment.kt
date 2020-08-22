@@ -5,6 +5,7 @@ import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -390,7 +391,7 @@ class WebViewLoginFragment : BaseFragment() {
     internal inner class InJavaScriptLocalObj {
         @JavascriptInterface
         fun showSource(html: String) {
-            // Log.d("源码", html)
+            Log.d("源码", html)
             if (viewModel.importType != "apply") {
                 launch {
                     try {
@@ -405,19 +406,17 @@ class WebViewLoginFragment : BaseFragment() {
                     }
                 }
             } else {
-                launch {
-                    try {
-                        viewModel.postHtml(
-                                school = viewModel.schoolInfo[0],
-                                type = if (viewModel.isUrp) "URP" else viewModel.schoolInfo[1],
-                                qq = viewModel.schoolInfo[2],
-                                html = html)
-                        Toasty.success(requireActivity().applicationContext, "上传源码成功~请等待适配哦", Toast.LENGTH_LONG).show()
-                        requireActivity().start<ApplyInfoActivity>()
-                        requireActivity().finish()
-                    } catch (e: Exception) {
-                        Toasty.error(requireActivity().applicationContext, "上传失败>_<\n" + e.message, Toast.LENGTH_LONG).show()
-                    }
+                try {
+                    viewModel.postHtml(
+                            school = viewModel.schoolInfo[0],
+                            type = if (viewModel.isUrp) "URP" else viewModel.schoolInfo[1],
+                            qq = viewModel.schoolInfo[2],
+                            html = html)
+                    Toasty.success(requireActivity().applicationContext, "上传源码成功~请等待适配哦", Toast.LENGTH_LONG).show()
+                    requireActivity().start<ApplyInfoActivity>()
+                    requireActivity().finish()
+                } catch (e: Exception) {
+                    Toasty.error(requireActivity().applicationContext, "上传失败>_<\n" + e.message, Toast.LENGTH_LONG).show()
                 }
             }
         }

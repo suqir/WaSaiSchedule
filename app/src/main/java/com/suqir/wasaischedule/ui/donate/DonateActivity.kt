@@ -1,4 +1,4 @@
-package com.suqir.wasaischedule.ui
+package com.suqir.wasaischedule.ui.donate
 
 import android.content.Intent
 import android.net.Uri
@@ -6,25 +6,22 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import androidx.lifecycle.Observer
 import com.suqir.wasaischedule.BuildConfig
 import com.suqir.wasaischedule.R
-import com.suqir.wasaischedule.logic.bean.DonateBean
+import com.suqir.wasaischedule.logic.model.DonateResponse
 import com.suqir.wasaischedule.ui.base_view.BaseBlurTitleActivity
 import com.suqir.wasaischedule.utils.DonateUtils
-import com.suqir.wasaischedule.utils.MyRetrofitUtils
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_donate.*
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import splitties.dimensions.dip
 
 class DonateActivity : BaseBlurTitleActivity() {
+
+    private val viewModel by viewModels<DonateViewModel>()
 
     override val layoutId: Int
         get() = R.layout.activity_donate
@@ -43,26 +40,17 @@ class DonateActivity : BaseBlurTitleActivity() {
         if (BuildConfig.CHANNEL == "google" || BuildConfig.CHANNEL == "huawei") {
             tv_donate.visibility = View.GONE
         }
-//        initData()
+        initData()
     }
 
     private fun initData() {
-        MyRetrofitUtils.instance.getService().getDonateList().enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
+        viewModel.donateList.observe(this, Observer { result ->
+            val donateList = result.getOrNull()
+            if (donateList != null) {
+                displayList(donateList)
+            } else {
                 displayError()
             }
-
-            override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
-                if (response!!.body() != null) {
-                    val gson = Gson()
-                    val list = gson.fromJson<List<DonateBean>>(response.body()!!.string(), object : TypeToken<List<DonateBean>>() {
-                    }.type)
-                    displayList(list)
-                } else {
-                    displayError()
-                }
-            }
-
         })
     }
 
@@ -81,7 +69,7 @@ class DonateActivity : BaseBlurTitleActivity() {
         ll_middle.addView(textView)
     }
 
-    private fun displayList(list: List<DonateBean>) {
+    private fun displayList(list: List<DonateResponse.Donate>) {
         ll_right.removeAllViews()
         ll_left.removeAllViews()
         ll_middle.removeAllViews()
@@ -90,7 +78,7 @@ class DonateActivity : BaseBlurTitleActivity() {
             val textParams = LinearLayoutCompat.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             textParams.setMargins(0, 0, 0, dip(8))
             textView.layoutParams = textParams
-            textView.text = item.name
+            textView.text = item.donate_name
             textView.textSize = 12f
             when (item.id % 3) {
                 0 -> ll_right.addView(textView)

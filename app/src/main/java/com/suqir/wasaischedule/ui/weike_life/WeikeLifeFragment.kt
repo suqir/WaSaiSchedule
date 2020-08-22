@@ -33,7 +33,7 @@ class WeikeLifeFragment : BaseFragment() {
             navController.navigate(R.id.action_weikeLifeFragment_to_xghFragment)
         }
         cv_query_ykt.setOnClickListener {
-            Toasty.info(requireContext(), "正在开发中...", Toasty.LENGTH_LONG).show()
+            navController.navigate(R.id.action_weikeLifeFragment_to_YKTRecordFragment)
         }
         cv_cpdaily_sign.setOnClickListener {
             Toasty.info(requireContext(), "正在开发中...", Toasty.LENGTH_LONG).show()

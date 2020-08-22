@@ -1,11 +1,6 @@
 package com.suqir.wasaischedule.logic.network
 
-import android.content.Context
 import android.util.Log
-import androidx.core.content.edit
-import com.suqir.wasaischedule.utils.Const
-import com.suqir.wasaischedule.utils.getPrefer
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,23 +20,16 @@ object WaSaiNetwork {
 
     // WaSaiSchedule部分
     suspend fun getUpdateInfo() = scheduleService.getUpdateInfo().await()
-    fun addCount(context: Context) {
-        scheduleService.addCount().enqueue(object : Callback<ResponseBody> {
-            override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
-                context.getPrefer().edit {
-                    putBoolean(Const.KEY_HAS_COUNT, true)
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {}
-        })
-    }
+    suspend fun getDonateList() = scheduleService.getDonateList().await()
+    suspend fun postHtml(school: String, type: String, html: String, qq: String) = scheduleService.postHtml(school, type, html, qq).await()
+    suspend fun addHtml(school: String, type: String, html: String, qq: String, count: Int) = scheduleService.addHtml(school, type, html, qq, count).await()
+    suspend fun getApplySchool() = scheduleService.getApplySchool().await()
 
     // 潍坊科技学院专用
     suspend fun getStudentSchedule(xh: String, xn: String, xq: String, offset: String) = wkService.getStudentSchedule(xh, xn, xq, offset).await()
     suspend fun getTeacherSchedule(gh: String, xn: String, xq: String, offset: String) = wkService.getTeacherSchedule(gh, xn, xq, offset).await()
     suspend fun getStudentScore(xh: String, xn: String, xq: String, offset: String) = wkService.getStudentScore(xh, xn, xq, offset).await()
-    suspend fun getYktRecord(xgh: String, limit: String, offset: String) = wkService.getYktRecord(xgh, limit, offset).await()
+    suspend fun getYktRecord(xgh: String, offset: String) = wkService.getYktRecord(xgh, "30", offset).await()
 
     suspend fun getAccessToken(userName: String) = jxzlService.getAccessToken(userName).await()
     suspend fun getTeachers(searchName: String, accessToken: String) = jxzlService.getTeachers(searchName, accessToken).await()
@@ -57,6 +45,7 @@ object WaSaiNetwork {
                 override fun onResponse(call: Call<T>, response: Response<T>) {
                     val body = response.body()
                     if (body != null) {
+                        Log.d("TAG", "onResponse: $body")
                         continuation.resume(body)
                     } else {
                         continuation.resumeWithException(RuntimeException("response is null"))

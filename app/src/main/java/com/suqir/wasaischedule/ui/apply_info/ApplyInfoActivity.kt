@@ -27,7 +27,7 @@ class ApplyInfoActivity : BaseListActivity() {
         tvButton.textSize = 20f
         tvButton.text = "\uE6D7"
         tvButton.setOnClickListener {
-            viewModel.initData()
+
         }
         return tvButton
     }
@@ -61,18 +61,19 @@ class ApplyInfoActivity : BaseListActivity() {
             this.setHeaderView(initHeaderView())
         }
         mRecyclerView.layoutManager = LinearLayoutManager(this)
-        viewModel.initData()
-        viewModel.countInfo.observe(this, Observer {
-            when (it) {
-                "OK" -> {
-                    mRecyclerView.adapter?.notifyDataSetChanged()
-                }
-                "error" -> {
-                    Toasty.error(applicationContext, "网络错误").show()
-                }
+//        viewModel.initData()
+        viewModel.initData().observe(this, Observer { result ->
+            val list = result.getOrNull()
+            if (list != null) {
+                viewModel.countList.clear()
+                viewModel.countList.addAll(list)
+                viewModel.filterList.clear()
+                viewModel.filterList.addAll(viewModel.countList)
+                mRecyclerView.adapter?.notifyDataSetChanged()
+            } else {
+                Toasty.error(applicationContext, "网络错误").show()
             }
         })
-
     }
 
     private fun initHeaderView(): View {

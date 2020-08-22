@@ -37,6 +37,16 @@ class ScheduleManageFragment : BaseFragment() {
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        if (::adapter.isInitialized) {
+            launch {
+                adapter.data = viewModel.initTableSelectList()
+                adapter.notifyDataSetChanged()
+            }
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fab_add.setOnClickListener {
