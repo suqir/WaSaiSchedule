@@ -1,11 +1,12 @@
 package com.suqir.wasaischedule.ui.schedule_import
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,6 +55,7 @@ class WebViewLoginFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_web_view_login, container, false)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @JavascriptInterface
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -343,7 +345,6 @@ class WebViewLoginFragment : BaseFragment() {
                     it.longSnack("请在看到网页加载完成后，再点一次右下角按钮")
                     countClick++
                 } else if (countClick == 1) {
-//                    val jnujs = "javascript:window.local_obj.jump2DespairingUrl(document.getElementById(\"ReportFrameReportViewer1\").src);"
                     val jnujs = "javascript:window.location.href = document.getElementById(\"ReportFrameReportViewer1\").src;"
                     wv_course.loadUrl(jnujs)
 //                    wv_course.loadUrl(despairingUrl)
@@ -352,6 +353,20 @@ class WebViewLoginFragment : BaseFragment() {
                 } else {
                     wv_course.loadUrl(js)
                     countClick = 0
+                }
+            } else if (viewModel.importType == Common.TYPE_QINGGUO) {
+                if (countClick == 0) {
+                    val referjs = "javascript:window.location.href = \"http://jwgl.wfust.edu.cn/wfkjjw/student/xkjg.wdkb.jsp?menucode=S20301\""
+                    wv_course.loadUrl(referjs)
+                    it.longSnack("请等待网页加载完成，选择学年学期后再点一次右下角按钮")
+                    countClick++
+                } else if (countClick == 1) {
+                    val qingguojs = "javascript:window.location.href = document.getElementsByTagName(\"iframe\")[0].src;"
+                    wv_course.loadUrl(qingguojs)
+                    it.longSnack("请等待网页加载完成，再点一次右下角按钮")
+                    countClick++
+                } else {
+                    wv_course.loadUrl("javascript:window.local_obj.showSource(document.getElementsByTagName('html')[0].innerHTML);")
                 }
             } else {
                 wv_course.loadUrl(js)
@@ -391,14 +406,12 @@ class WebViewLoginFragment : BaseFragment() {
     internal inner class InJavaScriptLocalObj {
         @JavascriptInterface
         fun showSource(html: String) {
-            Log.d("源码", html)
             if (viewModel.importType != "apply") {
                 launch {
                     try {
                         val result = viewModel.importSchedule(html)
-                        Toasty.success(requireActivity(),
-                                "成功导入 $result 门课程(ﾟ▽ﾟ)/\n请在右侧栏切换后查看").show()
-                        requireActivity().setResult(RESULT_OK)
+                        val intent = Intent().apply { putExtra("course_total", result) }
+                        requireActivity().setResult(RESULT_OK, intent)
                         requireActivity().finish()
                     } catch (e: Exception) {
                         Toasty.error(requireActivity(),

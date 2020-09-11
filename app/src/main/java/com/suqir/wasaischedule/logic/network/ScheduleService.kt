@@ -26,7 +26,7 @@ interface ScheduleService {
     @GET("v1/applies")
     fun getApplySchool(): Call<ApplySchoolResponse>
 
-    @HTTP(method = "POST", path = "v1/apply", hasBody = true)
+    @HTTP(method = "POST", path = "", hasBody = true)
     @FormUrlEncoded
     fun postHtml(@Field("school") school: String,
                  @Field("type") type: String,

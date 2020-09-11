@@ -41,7 +41,7 @@ object UpdateUtils {
                     nodes = context.getPrefer().getInt("classNum", 11),
                     itemAlpha = context.getPrefer().getInt("sb_alpha", 60),
                     background = context.getPrefer().getString(Const.KEY_OLD_VERSION_BG_URI, "")!!,
-                    startDate = context.getPrefer().getString(Const.KEY_OLD_VERSION_TERM_START, "2019-02-25")!!,
+                    startDate = context.getPrefer().getString(Const.KEY_OLD_VERSION_TERM_START, "2020-03-25")!!,
                     widgetItemAlpha = context.getPrefer().getInt("sb_widget_alpha", 60),
                     widgetItemHeight = context.getPrefer().getInt("widget_item_height", 56),
                     widgetItemTextSize = context.getPrefer().getInt("sb_widget_text_size", 12),

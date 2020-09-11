@@ -18,6 +18,7 @@ object Common {
     const val TYPE_QZ_WITH_NODE = "qz_with_node"
     const val TYPE_CF = "cf"
     const val TYPE_API = "api"
+    const val TYPE_QINGGUO = "qingguo"
     const val TYPE_PKU = "pku" // 北京大学
     const val TYPE_BNUZ = "bnuz" // 北京师范大学珠海分校
     const val TYPE_HNIU = "hniu" // 湖南信息职业技术学院

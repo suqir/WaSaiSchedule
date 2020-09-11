@@ -67,7 +67,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="edfffd" />
+                                                <entry key="color" value="4c56ff" />
                                                 <entry key="imagePath" value="C:\Users\Ingun\AppData\Local\Temp\baseline_menu_book_24.xml" />
                                                 <entry key="scalingPercent" value="73" />
                                               </map>
@@ -126,6 +126,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="ffffff" />
                                       <entry key="foregroundAssetType" value="CLIP_ART" />
                                     </map>
                                   </option>

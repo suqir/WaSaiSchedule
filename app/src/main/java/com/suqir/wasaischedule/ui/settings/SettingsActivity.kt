@@ -168,7 +168,6 @@ class SettingsActivity : BaseListActivity(), ColorPickerFragment.ColorPickerDial
                 getPrefer().edit {
                     putBoolean(Const.KEY_SHOW_WEIKE_LIFE, isChecked)
                 }
-                mRecyclerView.snack("重启App后生效哦")
             }
             "主界面虚拟键沉浸" -> {
                 getPrefer().edit {

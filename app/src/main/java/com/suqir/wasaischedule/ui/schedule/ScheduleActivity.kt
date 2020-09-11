@@ -20,7 +20,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ShareCompat
 import androidx.core.content.edit
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -145,6 +144,10 @@ class ScheduleActivity : BaseActivity() {
             }
         })
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         initBottomSheetAction()
     }
 
@@ -235,7 +238,7 @@ class ScheduleActivity : BaseActivity() {
 
     private fun initBottomSheetAction() {
         hideBottomSheetDialog()
-        bottomSheetDialog.bottom_sheet_weike_btn.isVisible = getPrefer().getBoolean(Const.KEY_SHOW_WEIKE_LIFE, true)
+        bottomSheetDialog.bottom_sheet_weike_btn.visibility = if (getPrefer().getBoolean(Const.KEY_SHOW_WEIKE_LIFE, true)) View.VISIBLE else View.INVISIBLE
         bottomSheetDialog.bottom_sheet_rv_table.layoutManager = LinearLayoutManager(this).apply {
             orientation = LinearLayoutManager.HORIZONTAL
         }

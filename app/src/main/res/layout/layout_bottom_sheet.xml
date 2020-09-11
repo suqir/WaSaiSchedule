@@ -216,7 +216,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/bottom_sheet_weike_btn"
+                        android:id="@+id/bottom_sheet_setting_btn"
                         style="@style/ButtonBackground"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -227,12 +227,12 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:src="@drawable/ic_weike_logo" />
+                            android:src="@drawable/ic_settings_24" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="潍科生活"
+                            android:text="设置"
                             android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -286,27 +286,6 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/bottom_sheet_setting_btn"
-                        style="@style/ButtonBackground"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_settings_24" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="设置"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:id="@+id/bottom_sheet_about_btn"
                         style="@style/ButtonBackground"
                         android:layout_width="0dp"
@@ -324,6 +303,27 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="关于"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/bottom_sheet_weike_btn"
+                        style="@style/ButtonBackground"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_weike_logo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="潍科生活"
                             android:textSize="12sp" />
                     </LinearLayout>
 

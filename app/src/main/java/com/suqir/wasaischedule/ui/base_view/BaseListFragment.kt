@@ -14,19 +14,21 @@ abstract class BaseListFragment : BaseFragment() {
     protected lateinit var mRecyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return ConstraintLayout(context).apply {
+        return context?.let {
+            ConstraintLayout(it).apply {
 
-            mRecyclerView = RecyclerView(context, null, R.attr.verticalRecyclerViewStyle).apply {
-                overScrollMode = View.OVER_SCROLL_NEVER
-            }
+                mRecyclerView = RecyclerView(context, null, R.attr.verticalRecyclerViewStyle).apply {
+                    overScrollMode = View.OVER_SCROLL_NEVER
+                }
 
-            addView(mRecyclerView, ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT).apply {
-                topToTop = ConstraintSet.PARENT_ID
-                bottomToBottom = ConstraintSet.PARENT_ID
-                startToStart = ConstraintSet.PARENT_ID
-                endToEnd = ConstraintSet.PARENT_ID
-            })
+                addView(mRecyclerView, ConstraintLayout.LayoutParams(
+                        ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT).apply {
+                    topToTop = ConstraintSet.PARENT_ID
+                    bottomToBottom = ConstraintSet.PARENT_ID
+                    startToStart = ConstraintSet.PARENT_ID
+                    endToEnd = ConstraintSet.PARENT_ID
+                })
+        }
         }
 
     }

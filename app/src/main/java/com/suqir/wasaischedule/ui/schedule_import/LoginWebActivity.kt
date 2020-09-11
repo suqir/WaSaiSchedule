@@ -56,7 +56,7 @@ class LoginWebActivity : BaseActivity() {
                 val uri = intent.data
                 val path = uri?.path ?: ""
                 val type = when {
-                    path.contains("wakeup_schedule") -> "file"
+                    path.contains("wasai_schedule") -> "file"
                     path.endsWith("csv") -> "csv"
                     path.endsWith("html") -> "html"
                     else -> ""

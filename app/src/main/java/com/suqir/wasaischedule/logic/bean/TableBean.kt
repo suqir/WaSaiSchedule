@@ -20,10 +20,10 @@ data class TableBean(
         @PrimaryKey(autoGenerate = true)
         var id: Int,
         var tableName: String,
-        var nodes: Int = 20,
+        var nodes: Int = 10,
         var background: String = "",
         var timeTable: Int = 1,
-        var startDate: String = "2020-08-01",
+        var startDate: String = "2020-08-31",
         var maxWeek: Int = 30,
         var itemHeight: Int = 56,
         var itemAlpha: Int = 60,

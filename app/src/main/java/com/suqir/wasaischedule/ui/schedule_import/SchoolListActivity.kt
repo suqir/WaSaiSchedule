@@ -34,6 +34,7 @@ import com.suqir.wasaischedule.ui.schedule_import.Common.TYPE_HNUST
 import com.suqir.wasaischedule.ui.schedule_import.Common.TYPE_JNU
 import com.suqir.wasaischedule.ui.schedule_import.Common.TYPE_LOGIN
 import com.suqir.wasaischedule.ui.schedule_import.Common.TYPE_PKU
+import com.suqir.wasaischedule.ui.schedule_import.Common.TYPE_QINGGUO
 import com.suqir.wasaischedule.ui.schedule_import.Common.TYPE_QZ
 import com.suqir.wasaischedule.ui.schedule_import.Common.TYPE_QZ_BR
 import com.suqir.wasaischedule.ui.schedule_import.Common.TYPE_QZ_CRAZY
@@ -195,11 +196,13 @@ class SchoolListActivity : BaseTitleActivity(), OnQuickSideBarTouchListener {
                 it.sortKey = "★"
                 add(it)
             }
-            add(SchoolInfo("专", "潍坊科技学院", "", TYPE_API))
-            add(SchoolInfo("专", "潍坊科技学院-教师专用", "", TYPE_API))
+            add(SchoolInfo("专", "潍坊科技学院", "http://jwgl.wfust.edu.cn/wfkjjw/cas/login.action", TYPE_QINGGUO))
+            add(SchoolInfo("专", "潍坊科技学院(无需登录)", "", TYPE_API))
+            add(SchoolInfo("专", "潍坊科技学院-教师", "", TYPE_API))
             add(SchoolInfo("通", "新 URP 系统", "", TYPE_URP_NEW))
             add(SchoolInfo("通", "URP 系统", "", TYPE_URP))
             add(SchoolInfo("通", "新正方教务", "", TYPE_ZF_NEW))
+            add(SchoolInfo("通", "新青果教务", "", TYPE_QINGGUO))
             add(SchoolInfo("通", "正方教务", "", TYPE_ZF))
             add(SchoolInfo("通", "强智教务", "", TYPE_QZ))
             add(SchoolInfo("通", "旧强智（需要 IE 的那种）", "", TYPE_QZ_OLD))
@@ -388,8 +391,7 @@ class SchoolListActivity : BaseTitleActivity(), OnQuickSideBarTouchListener {
             add(SchoolInfo("W", "温州医科大学", "http://jwxt.wmu.edu.cn", TYPE_ZF_NEW))
             add(SchoolInfo("W", "渭南师范学院", "http://218.195.46.9", TYPE_ZF))
             add(SchoolInfo("W", "潍坊学院", "http://210.44.64.154/", TYPE_ZF))
-            add(SchoolInfo("W", "潍坊科技学院", "", TYPE_API))
-            add(SchoolInfo("W", "潍坊科技学院-教师专用", "", TYPE_API))
+            add(SchoolInfo("W", "潍坊科技学院", "http://jwgl.wfust.edu.cn/wfkjjw/cas/login.action", TYPE_QINGGUO))
             add(SchoolInfo("W", "潍坊职业学院", "http://jwgl.sdwfvc.cn/", TYPE_ZF_NEW))
             add(SchoolInfo("W", "皖西学院", "", TYPE_QZ))
             add(SchoolInfo("X", "信阳师范学院", "http://jwc.xynu.edu.cn/jxzhxxfwpt.htm", TYPE_ZF_NEW))

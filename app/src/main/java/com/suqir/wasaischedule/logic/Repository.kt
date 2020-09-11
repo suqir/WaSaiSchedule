@@ -44,7 +44,7 @@ object Repository {
     }
 
     fun postHtml(school: String, type: String, html: String, qq: String) = fire(Dispatchers.IO) {
-        Log.d("TAG", "postHtml: $school\n$type\n$html\n$qq")
+        Log.d("hhhhh", "Repository postHtml:")
         val response = WaSaiNetwork.postHtml(school, type, html, qq)
         Result.success(response)
     }

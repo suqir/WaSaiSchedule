@@ -11,8 +11,8 @@ import com.suqir.wasaischedule.ui.schedule_import.LoginWebActivity
 import com.suqir.wasaischedule.ui.schedule_import.SchoolListActivity
 import com.suqir.wasaischedule.utils.Const
 import com.suqir.wasaischedule.utils.Utils
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_import_choose.*
-import splitties.activities.start
 
 class ImportChooseFragment : BaseDialogFragment() {
 
@@ -76,10 +76,11 @@ class ImportChooseFragment : BaseDialogFragment() {
 
         tv_feedback.setOnClickListener {
             //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            requireActivity().start<LoginWebActivity> {
-                putExtra("import_type", "apply")
-            }
-            dismiss()
+//            requireActivity().start<LoginWebActivity> {
+//                putExtra("import_type", "apply")
+//            }
+//            dismiss()
+            Toasty.info(requireContext(), "作者说他去打篮球了，打完球就写这个功能").show()
         }
     }
 

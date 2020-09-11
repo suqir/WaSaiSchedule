@@ -61,7 +61,6 @@ class ApplyInfoActivity : BaseListActivity() {
             this.setHeaderView(initHeaderView())
         }
         mRecyclerView.layoutManager = LinearLayoutManager(this)
-//        viewModel.initData()
         viewModel.initData().observe(this, Observer { result ->
             val list = result.getOrNull()
             if (list != null) {

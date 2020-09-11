@@ -3,7 +3,6 @@ package com.suqir.wasaischedule.ui.schedule_import
 import android.app.Application
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.util.SparseArray
 import androidx.lifecycle.AndroidViewModel
 import com.google.gson.Gson
@@ -83,6 +82,7 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
             Common.TYPE_HNIU -> HNIUParser(source)
             Common.TYPE_HNUST -> HNUSTParser(source, oldQzType)
             Common.TYPE_JNU -> JNUParser(source)
+            Common.TYPE_QINGGUO -> NewQingGuoParser(source)
             else -> null
         }
         return parser?.saveCourse(getApplication(), importId) { baseList, detailList ->
@@ -693,10 +693,7 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
         return value
     }
 
-    fun postHtml(school: String, type: String, html: String, qq: String) {
-        Log.d("TAG", "postHtml: $school\n$type\n$html\n$qq")
-        Repository.postHtml(school, type, html, qq)
-    }
+    fun postHtml(school: String, type: String, html: String, qq: String) = Repository.postHtml(school, type, html, qq)
 
     suspend fun importFromFile(uri: Uri?) {
         if (uri == null) throw Exception("读取文件失败")

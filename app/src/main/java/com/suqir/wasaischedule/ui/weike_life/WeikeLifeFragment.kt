@@ -1,5 +1,7 @@
 package com.suqir.wasaischedule.ui.weike_life
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,8 +37,13 @@ class WeikeLifeFragment : BaseFragment() {
         cv_query_ykt.setOnClickListener {
             navController.navigate(R.id.action_weikeLifeFragment_to_YKTRecordFragment)
         }
-        cv_cpdaily_sign.setOnClickListener {
-            Toasty.info(requireContext(), "正在开发中...", Toasty.LENGTH_LONG).show()
+        cv_wkb.setOnClickListener {
+            Toasty.info(requireContext(), "正在跳转中...", Toasty.LENGTH_LONG).show()
+            val intent = Intent().apply {
+                action = "android.intent.action.VIEW"
+                data = Uri.parse("http://wk.suqir.xyz")
+            }
+            requireContext().startActivity(intent)
         }
     }
 

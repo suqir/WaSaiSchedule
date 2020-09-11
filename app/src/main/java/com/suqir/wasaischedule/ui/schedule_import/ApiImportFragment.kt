@@ -42,7 +42,7 @@ class ApiImportFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tv_title.text = viewModel.school
-        if (viewModel.school == "潍坊科技学院-教师专用") {
+        if (viewModel.school == "潍坊科技学院-教师") {
             input_id.hint = "工号"
         }
         initEvent()
@@ -65,7 +65,7 @@ class ApiImportFragment : BaseFragment() {
                 et_id.text!!.isEmpty() -> input_id.showError("学号不能为空")
                 et_year.text!!.isEmpty() -> input_year.showError("学年不能为空")
                 et_term.text!!.isEmpty() -> input_term.showError("学期不能为空")
-                viewModel.school == "潍坊科技学院-教师专用" -> launch { getTeacherSchedule() }
+                viewModel.school == "潍坊科技学院-教师" -> launch { getTeacherSchedule() }
                 else -> launch { getStudentSchedule() }
             }
         }

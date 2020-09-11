@@ -148,7 +148,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_cpdaily_sign"
+        android:id="@+id/cv_wkb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -167,13 +167,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/weike_life_sign_title"
+                android:id="@+id/weike_life_wkb_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="今日校园签到"
+                android:text="网课宝"
                 android:textColor="#ffffffff"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -184,12 +184,12 @@
                 android:background="#ffffffff" />
 
             <TextView
-                android:id="@+id/weike_life_sign_desc"
+                android:id="@+id/weike_life_wkb_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:gravity="center"
-                android:text="服务器自动监控今日校园签到任务，根据预先设置的位置信息进行自动签到"
+                android:text="私货，低价刷网课，包售后"
                 android:textColor="#ffffffff" />
         </LinearLayout>
 
