@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.ui.base_view.BaseDialogFragment
 import com.suqir.wasaischedule.utils.Const
+import com.suqir.wasaischedule.utils.Utils
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.fragment_export_settings.*
 
@@ -33,7 +34,7 @@ class ExportSettingsFragment : BaseDialogFragment() {
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = "application/octet-stream"
-                putExtra(Intent.EXTRA_TITLE, "$tableName.wakeup_schedule")
+                putExtra(Intent.EXTRA_TITLE, "$tableName.wasai_schedule")
             }
             Toasty.info(requireActivity(), "请自行选择导出的地方\n不要修改文件的扩展名哦", Toasty.LENGTH_LONG).show()
             activity?.startActivityForResult(intent, Const.REQUEST_CODE_EXPORT)
@@ -41,7 +42,7 @@ class ExportSettingsFragment : BaseDialogFragment() {
         }
 
         tv_export_ics.setOnLongClickListener {
-//            Utils.openUrl(requireActivity(), "https://www.jianshu.com/p/de3524cbe8aa")
+            Utils.openUrl(requireActivity(), "https://www.cnblogs.com/albert-biu/p/10464344.html")
             return@setOnLongClickListener true
         }
 

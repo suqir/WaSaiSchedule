@@ -45,7 +45,7 @@ class WeekScheduleAppWidgetConfigActivity : BaseBlurTitleActivity() {
         val appWidgetManager = AppWidgetManager.getInstance(applicationContext)
         //Log.d("包名", appWidgetManager.getAppWidgetInfo(mAppWidgetId).provider.shortClassName)
         val what = appWidgetManager.getAppWidgetInfo(mAppWidgetId).provider.shortClassName
-        isTodayType = (what == ".today_appwidget.TodayCourseAppWidget" || what == "com.suda.yzune.wakeupschedule.today_appwidget.TodayCourseAppWidget")
+        isTodayType = (what == "com.suqir.wasaischedule.ui.today_appwidget.TodayCourseAppWidget")
         if (isTodayType) {
             Glide.with(this)
                     .load("https://ws2.sinaimg.cn/large/0069RVTdgy1fv5ypjuqs1j30u01hcdlt.jpg")

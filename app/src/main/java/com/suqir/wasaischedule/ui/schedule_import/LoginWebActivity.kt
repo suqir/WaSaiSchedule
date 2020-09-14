@@ -62,7 +62,7 @@ class LoginWebActivity : BaseActivity() {
                     else -> ""
                 }
                 if (type.isEmpty()) {
-                    Toasty.error(this@LoginWebActivity, "文件的扩展名不对哦>_<", Toast.LENGTH_LONG).show()
+                    Toasty.error(this@LoginWebActivity, "文件的扩展名不对哦", Toast.LENGTH_LONG).show()
                     val intent = Intent(this@LoginWebActivity, SplashActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
@@ -84,7 +84,7 @@ class LoginWebActivity : BaseActivity() {
                             "file" -> viewModel.importFromFile(uri)
                             "csv" -> viewModel.importFromExcel(uri)
                         }
-                        Toasty.success(this@LoginWebActivity, "导入成功(ﾟ▽ﾟ)/请在右侧栏切换后查看", Toast.LENGTH_LONG).show()
+                        Toasty.success(this@LoginWebActivity, "导入成功", Toast.LENGTH_LONG).show()
                         val intent = Intent(this@LoginWebActivity, SplashActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
@@ -110,21 +110,21 @@ class LoginWebActivity : BaseActivity() {
             Const.REQUEST_CODE_IMPORT_FILE -> {
                 launch {
                     try {
-                        viewModel.importFromFile(data?.data)
-                        Toasty.success(this@LoginWebActivity, "导入成功(ﾟ▽ﾟ)/请在右侧栏切换后查看", Toast.LENGTH_LONG).show()
-                        setResult(RESULT_OK)
+                        val totalSize = viewModel.importFromFile(data?.data)
+                        Toasty.success(this@LoginWebActivity, "导入成功", Toast.LENGTH_LONG).show()
+                        setResult(RESULT_OK, Intent().apply { putExtra("course_total", totalSize) })
                         finish()
                     } catch (e: Exception) {
-                        Toasty.error(this@LoginWebActivity, "发生异常>_<\n${e.message}", Toast.LENGTH_LONG).show()
+                        Toasty.error(this@LoginWebActivity, "发生异常>_<\n请确保选择了扩展名为wasai_schedule的文件！", Toast.LENGTH_LONG).show()
                     }
                 }
             }
             Const.REQUEST_CODE_IMPORT_CSV -> {
                 launch {
                     try {
-                        viewModel.importFromExcel(data?.data)
-                        Toasty.success(this@LoginWebActivity, "导入成功(ﾟ▽ﾟ)/请在右侧栏切换后查看", Toast.LENGTH_LONG).show()
-                        setResult(RESULT_OK)
+                        val totalSize = viewModel.importFromExcel(data?.data)
+                        Toasty.success(this@LoginWebActivity, "导入成功", Toast.LENGTH_LONG).show()
+                        setResult(RESULT_OK, Intent().apply { putExtra("course_total", totalSize) })
                         finish()
                     } catch (e: Exception) {
                         Toasty.error(this@LoginWebActivity, "发生异常>_<请确保所有应填的格子不为空\n且没有更改模板的属性\n${e.message}", Toast.LENGTH_LONG).show()

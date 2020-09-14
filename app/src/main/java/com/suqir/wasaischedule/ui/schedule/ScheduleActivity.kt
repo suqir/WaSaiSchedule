@@ -105,11 +105,11 @@ class ScheduleActivity : BaseActivity() {
         initView()
 
         val openTimes = getPrefer().getInt(Const.KEY_OPEN_TIMES, 0)
-        if (openTimes < 10) {
+        if (openTimes % 10 != 0) {
             getPrefer().edit {
                 putInt(Const.KEY_OPEN_TIMES, openTimes + 1)
             }
-        } else if (openTimes == 10) {
+        } else if (openTimes != 0) {
             val dialog = DonateFragment.newInstance()
             dialog.isCancelable = false
             dialog.show(supportFragmentManager, "donateDialog")

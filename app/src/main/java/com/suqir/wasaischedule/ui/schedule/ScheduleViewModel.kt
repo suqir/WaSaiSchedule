@@ -168,10 +168,10 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     }
 
     suspend fun exportData(uri: Uri?) {
-        if (uri == null) throw Exception("无法获取文件")
-        val outputStream = getApplication<App>().contentResolver.openOutputStream(uri)
         val gson = Gson()
         val strBuilder = StringBuilder()
+        val outputStream = getApplication<App>().contentResolver.openOutputStream(uri
+                ?: throw Exception("无法获取文件"))
         strBuilder.append(gson.toJson(timeTableDao.getTimeTable(table.timeTable)))
         strBuilder.append("\n${gson.toJson(timeList)}")
         strBuilder.append("\n${gson.toJson(table)}")
@@ -186,7 +186,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
         if (uri == null) throw Exception("无法获取文件")
         val ical = ICalendar()
         withContext(Dispatchers.Default) {
-            ical.setProductId("-//YZune//WakeUpSchedule//EN")
+            ical.setProductId("-//Suqir//WaSaiSchedule//EN")
             val startTimeMap = ICalUtils.getClassTime(timeList, true)
             val endTimeMap = ICalUtils.getClassTime(timeList, false)
             val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA)

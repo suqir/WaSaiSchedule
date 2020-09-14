@@ -67,7 +67,7 @@ object ICalUtils {
 
         // create event, repeat weekly
         val event = VEvent()
-        event.setUid("WakeUpSchedule-" + Uid.random().value)
+        event.setUid("WaSaiSchedule-" + Uid.random().value)
         event.setSummary(course.courseName)
         event.setDateStart(dailyStart.time)
         event.setDateEnd(dailyEnd.time)

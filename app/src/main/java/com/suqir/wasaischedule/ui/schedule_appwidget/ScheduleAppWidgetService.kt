@@ -4,10 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.RemoteViews
-import android.widget.RemoteViewsService
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.setPadding
 import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.logic.bean.CourseBean
@@ -127,7 +124,7 @@ class ScheduleAppWidgetService : RemoteViewsService() {
             ui.showTimeDetail = showTimeDetail
             if (timeList.isNotEmpty() && showTimeDetail) {
                 for (i in 0 until table.nodes) {
-                    (ui.content.getViewById(R.id.anko_tv_node1 + i) as FrameLayout).apply {
+                    (ui.content.getViewById(R.id.anko_tv_node1 + i) as LinearLayout).apply {
                         findViewById<TextView>(R.id.tv_start).text = timeList[i].startTime
                         findViewById<TextView>(R.id.tv_end).text = timeList[i].endTime
                     }

@@ -695,9 +695,8 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
 
     fun postHtml(school: String, type: String, html: String, qq: String) = Repository.postHtml(school, type, html, qq)
 
-    suspend fun importFromFile(uri: Uri?) {
+    suspend fun importFromFile(uri: Uri?): Int {
         if (uri == null) throw Exception("读取文件失败")
-        if (!uri.path!!.contains("wakeup_schedule")) throw Exception("请确保文件类型正确")
         val gson = Gson()
         val list = withContext(Dispatchers.IO) {
             getApplication<App>().contentResolver.openInputStream(uri)!!.bufferedReader().readLines()
@@ -728,11 +727,11 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
         timeDetailDao.insertTimeList(timeDetails)
         tableDao.insertTable(table)
         courseDao.insertCourses(courseBaseList, courseDetailList)
+        return courseDetailList.size
     }
 
     suspend fun importFromExcel(uri: Uri?): Int {
         if (uri == null) throw Exception("读取文件失败")
-        if (!uri.path!!.endsWith("csv")) throw Exception("请确保选取的是 csv 文件")
         val source = withContext(Dispatchers.IO) {
             val text = getApplication<App>().contentResolver.openInputStream(uri)!!.bufferedReader(Charset.forName("gbk")).readText()
             if (text.startsWith("课程名称")) {

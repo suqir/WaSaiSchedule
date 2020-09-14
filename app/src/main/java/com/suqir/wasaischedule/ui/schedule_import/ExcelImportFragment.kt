@@ -24,7 +24,7 @@ class ExcelImportFragment : BaseFragment() {
         ViewUtils.resizeStatusBar(requireContext(), v_status)
 
         tv_template.setOnClickListener {
-            Utils.openUrl(requireActivity(), "https://pan.baidu.com/s/1m9gZ-grvQV6S9isu7NeMVQ")
+            Utils.openUrl(requireActivity(), "https://wwe.lanzous.com/iWAWHglz23c")
         }
 
         tv_self.setOnClickListener {

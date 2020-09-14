@@ -8,7 +8,7 @@ import java.util.*
 object ExportUtils {
 
     fun exportData(currentDir: String, data: String) {
-        val file = File(currentDir, "课程表导出${Calendar.getInstance().timeInMillis}.wakeup_schedule")
+        val file = File(currentDir, "课程表导出${Calendar.getInstance().timeInMillis}.wasai_schedule")
         file.writeText(data)
     }
 

@@ -145,12 +145,12 @@ object AppWidgetUtils {
         mRemoteViews.setOnClickPendingIntent(R.id.tv_date, pIntent)
 
         val nextIntent = Intent(context, ScheduleAppWidget::class.java)
-        nextIntent.action = "WAKEUP_NEXT_WEEK"
+        nextIntent.action = "WASAI_NEXT_WEEK"
         val pi = PendingIntent.getBroadcast(context, 1, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         mRemoteViews.setOnClickPendingIntent(R.id.iv_next, pi)
 
         val backIntent = Intent(context, ScheduleAppWidget::class.java)
-        backIntent.action = "WAKEUP_BACK_WEEK"
+        backIntent.action = "WASAI_BACK_WEEK"
         val backPi = PendingIntent.getBroadcast(context, 2, backIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         mRemoteViews.setOnClickPendingIntent(R.id.iv_back, backPi)
 

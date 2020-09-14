@@ -15,7 +15,7 @@ import com.suqir.wasaischedule.utils.goAsync
 class ScheduleAppWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action == "WAKEUP_NEXT_WEEK") {
+        if (intent.action == "WASAI_NEXT_WEEK") {
             val dataBase = AppDatabase.getDatabase(context)
             val widgetDao = dataBase.appWidgetDao()
             val tableDao = dataBase.tableDao()
@@ -32,7 +32,7 @@ class ScheduleAppWidget : AppWidgetProvider() {
                 }
             }
         }
-        if (intent.action == "WAKEUP_BACK_WEEK") {
+        if (intent.action == "WASAI_BACK_WEEK") {
             val dataBase = AppDatabase.getDatabase(context)
             val widgetDao = dataBase.appWidgetDao()
             val tableDao = dataBase.tableDao()

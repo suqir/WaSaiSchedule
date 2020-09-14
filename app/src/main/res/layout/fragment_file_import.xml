@@ -52,7 +52,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:lineSpacingExtra="4dp"
-                android:text="这里说的从文件导入，是指从App的3.20版本后导出的课程文件导入，而不是从任意的包含课程信息的文件导入！请不要误会。"
+                android:text="这里说的从文件导入，是指从App的1.1.0版本之后导出的课程文件导入，而不是从任意的包含课程信息的文件导入！"
                 android:textSize="12sp" />
 
             <com.google.android.material.button.MaterialButton
