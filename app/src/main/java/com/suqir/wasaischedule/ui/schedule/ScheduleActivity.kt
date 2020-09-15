@@ -285,9 +285,8 @@ class ScheduleActivity : BaseActivity() {
                     .setTitle("当前周：${viewModel.currentWeek}")
                     .setView(R.layout.dialog_edit_seekbar)
                     .setNegativeButton(R.string.cancel, null)
-                    .setNeutralButton("恢复", null)
                     .setPositiveButton(R.string.sure, null)
-                    .setCancelable(false)
+                    .setCancelable(true)
                     .create()
             dialog.show()
             val seekBar = dialog.findViewById<SeekBar>(R.id.seek_bar)
@@ -311,14 +310,11 @@ class ScheduleActivity : BaseActivity() {
                 val valueInt = process?.plus(1)!!
                 viewModel.setCurWeek(valueInt)
                 launch {
-                    initView()
                     viewModel.saveSettings()
+                    initView()
                 }
                 dialog.dismiss()
                 bottomSheetDialog.dismiss()
-            }
-            dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
-                seekBar?.progress = viewModel.currentWeek - 1
             }
         }
         bottomSheetDialog.bottom_sheet_modify_time_btn.setOnClickListener {

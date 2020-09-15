@@ -179,10 +179,10 @@ class ScheduleSettingsActivity : BaseListActivity(), ColorPickerFragment.ColorPi
 
         items.add(CategoryItem("课表外观", false))
         items.add(SwitchItem("在格子内显示上课时间", viewModel.table.showTime, keys = listOf("时间", "显示", "格子", "上课时间")))
-        items.add(VerticalItem("课程表背景", "长按可以恢复默认哦~", keys = listOf("背景", "显示", "图片")))
-        items.add(VerticalItem("界面文字颜色", "指标题等字体的颜色\n还可以调颜色的透明度哦 (●ﾟωﾟ●)", keys = listOf("颜色", "显示", "文字", "文字颜色")))
-        items.add(VerticalItem("课程文字颜色", "指课程格子内的颜色\n还可以调颜色的透明度哦 (●ﾟωﾟ●)", keys = listOf("颜色", "显示", "文字", "文字颜色")))
-        items.add(VerticalItem("格子边框颜色", "将不透明度调到最低就可以隐藏边框了哦~", keys = listOf("边框", "显示", "边框颜色", "格子", "边")))
+        items.add(VerticalItem("课程表背景", "长按可以恢复默认", keys = listOf("背景", "显示", "图片")))
+        items.add(VerticalItem("界面文字颜色", "指标题等字体的颜色\n还可以调颜色的透明度", keys = listOf("颜色", "显示", "文字", "文字颜色")))
+        items.add(VerticalItem("课程文字颜色", "指课程格子内的颜色\n还可以调颜色的透明度", keys = listOf("颜色", "显示", "文字", "文字颜色")))
+        items.add(VerticalItem("格子边框颜色", "将不透明度调到最低就可以隐藏边框了", keys = listOf("边框", "显示", "边框颜色", "格子", "边")))
         items.add(SeekBarItem("课程格子高度", viewModel.table.itemHeight, 32, 96, "dp", keys = listOf("格子", "高度", "格子高度", "显示")))
         items.add(SeekBarItem("课程格子不透明度", viewModel.table.itemAlpha, 0, 100, "%", keys = listOf("格子", "透明", "格子高度", "显示")))
         items.add(SeekBarItem("课程显示文字大小", viewModel.table.itemTextSize, 8, 16, "sp", keys = listOf("文字", "大小", "文字大小")))
@@ -192,9 +192,9 @@ class ScheduleSettingsActivity : BaseListActivity(), ColorPickerFragment.ColorPi
         items.add(SeekBarItem("小部件格子高度", viewModel.table.widgetItemHeight, 32, 96, "dp", keys = listOf("格子", "高度", "格子高度", "显示", "小部件", "小", "插件", "桌面")))
         items.add(SeekBarItem("小部件格子不透明度", viewModel.table.widgetItemAlpha, 0, 100, "%", keys = listOf("格子", "透明", "格子高度", "显示", "小部件", "小", "插件", "桌面")))
         items.add(SeekBarItem("小部件显示文字大小", viewModel.table.widgetItemTextSize, 8, 16, "sp", keys = listOf("文字", "大小", "文字大小", "小部件", "小", "插件", "桌面")))
-        items.add(VerticalItem("小部件标题颜色", "指标题等字体的颜色\n对于日视图则是全部文字的颜色\n还可以调颜色的透明度哦 (●ﾟωﾟ●)", keys = listOf("颜色", "显示", "文字", "文字颜色", "小部件", "小", "插件", "桌面")))
-        items.add(VerticalItem("小部件课程颜色", "指课程格子内的文字颜色\n还可以调颜色的透明度哦 (●ﾟωﾟ●)", keys = listOf("颜色", "显示", "文字", "文字颜色", "小部件", "小", "插件", "桌面")))
-        items.add(VerticalItem("小部件格子边框颜色", "将不透明度调到最低就可以隐藏边框了哦~", keys = listOf("边框", "显示", "边框颜色", "格子", "边", "小部件", "小", "插件", "桌面")))
+        items.add(VerticalItem("小部件标题颜色", "标题等字体的颜色\n对于日视图则是全部文字的颜色\n还可以调颜色的透明度", keys = listOf("颜色", "显示", "文字", "文字颜色", "小部件", "小", "插件", "桌面")))
+        items.add(VerticalItem("小部件课程颜色", "课程格子内的文字颜色\n还可以调颜色的透明度", keys = listOf("颜色", "显示", "文字", "文字颜色", "小部件", "小", "插件", "桌面")))
+        items.add(VerticalItem("小部件格子边框颜色", "将不透明度调到最低就可以隐藏边框了", keys = listOf("边框", "显示", "边框颜色", "格子", "边", "小部件", "小", "插件", "桌面")))
     }
 
     private fun onSwitchItemCheckChange(item: SwitchItem, isChecked: Boolean) {
@@ -213,7 +213,7 @@ class ScheduleSettingsActivity : BaseListActivity(), ColorPickerFragment.ColorPi
                 .setTitle("${item.title}：${item.valueInt}")
                 .setView(R.layout.dialog_edit_seekbar)
                 .setNegativeButton(R.string.cancel, null)
-                .setNeutralButton("恢复", null)
+                .setNeutralButton("默认", null)
                 .setPositiveButton(R.string.sure, null)
                 .setCancelable(false)
                 .create()
@@ -263,7 +263,17 @@ class ScheduleSettingsActivity : BaseListActivity(), ColorPickerFragment.ColorPi
             dialog.dismiss()
         }
         dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
-            seekBar?.progress = item.valueInt - item.min
+            when (item.title) {
+                "一天课程节数" -> seekBar?.progress = 10 - item.min
+                "学期周数" -> seekBar?.progress = 20 - item.min
+                "当前周" -> seekBar?.progress = viewModel.getCurrentWeek() - item.min
+                "课程格子高度" -> seekBar?.progress = 56 - item.min
+                "课程格子不透明度" -> seekBar?.progress = 60 - item.min
+                "课程显示文字大小" -> seekBar?.progress = 12 - item.min
+                "小部件格子高度" -> seekBar?.progress = 56 - item.min
+                "小部件格子不透明度" -> seekBar?.progress = 60 - item.min
+                "小部件显示文字大小" -> seekBar?.progress = 12 - item.min
+            }
         }
     }
 

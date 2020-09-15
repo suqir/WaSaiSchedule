@@ -94,6 +94,10 @@ class WebViewLoginFragment : BaseFragment() {
             cg_zf.visibility = View.GONE
         }
 
+        if (viewModel.school == "潍坊科技学院") {
+            tips = "1.首先登录教务系统\n2.登陆成功后直接点击右下角按钮，软件自动跳转到课表选择页面\n3.学期选择完成后，再次点击右下角按钮查看课表\n4.确认无误后，最后一次点击右下角按钮进行导入\n5.若在步骤1-4中某一步出错，你需要重新进入此页面重复步骤1-4"
+        }
+
         if (viewModel.importType == Common.TYPE_HNUST) {
             cg_old_qz.visibility = View.VISIBLE
             chip_old_qz2.isChecked = true
