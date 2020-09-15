@@ -30,7 +30,7 @@
             android:layout_marginEnd="24dp"
             android:gravity="center"
             android:lineSpacingExtra="8dp"
-            android:text="本项目基于开源项目wakeup课程表开发，增加了很多潍坊科技学院的特色功能，作者用爱发电，你心情好可以捐赠，金额随意！"
+            android:text="软件基于开源项目wakeup课程表开发，增加了很多潍坊科技学院的专属功能，适配了青果教务系统，作者用爱发电，如果你心情好可以进行捐赠，金额随意！"
             android:textSize="12sp" />
 
         <androidx.appcompat.widget.LinearLayoutCompat

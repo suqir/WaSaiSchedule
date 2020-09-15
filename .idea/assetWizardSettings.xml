@@ -321,7 +321,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/E:/software/AndroidStudio/plugins/android/lib/android.jar!/images/material/icons/materialiconsoutlined/feedback/outline_feedback_24.xml" />
+                                      <entry key="url" value="jar:file:/E:/software/AndroidStudio/plugins/android/lib/android.jar!/images/material/icons/materialicons/keyboard_arrow_right/baseline_keyboard_arrow_right_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -331,7 +331,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_feedback_24" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_baseline_keyboard_arrow_right_24" />
                             <entry key="sourceFile" value="C:\Users\Ingun\Desktop\logo1.svg" />
                           </map>
                         </option>

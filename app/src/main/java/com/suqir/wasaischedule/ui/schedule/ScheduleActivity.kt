@@ -262,14 +262,14 @@ class ScheduleActivity : BaseActivity() {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 val value = editText?.text
                 if (value.isNullOrBlank()) {
-                    inputLayout?.error = "名称不能为空哦>_<"
+                    inputLayout?.error = "名称不能为空哦"
                 } else {
                     launch {
                         try {
                             viewModel.addBlankTable(editText.text.toString())
-                            Toasty.success(this@ScheduleActivity, "新建成功~").show()
+                            Toasty.success(this@ScheduleActivity, "新建成功").show()
                         } catch (e: Exception) {
-                            Toasty.error(this@ScheduleActivity, "操作失败>_<").show()
+                            Toasty.error(this@ScheduleActivity, "操作失败").show()
                         }
                         dialog.dismiss()
                     }

@@ -6,20 +6,19 @@ import android.content.Intent
 import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
-import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.webkit.*
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.suqir.wasaischedule.BuildConfig
 import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.ui.apply_info.ApplyInfoActivity
@@ -95,6 +94,7 @@ class WebViewLoginFragment : BaseFragment() {
         }
 
         if (viewModel.school == "潍坊科技学院") {
+            fab_import.visibility = View.INVISIBLE
             tips = "1.首先登录教务系统\n2.登陆成功后直接点击右下角按钮，软件自动跳转到课表选择页面\n3.学期选择完成后，再次点击右下角按钮查看课表\n4.确认无误后，最后一次点击右下角按钮进行导入\n5.若在步骤1-4中某一步出错，你需要重新进入此页面重复步骤1-4"
         }
 
@@ -144,6 +144,14 @@ class WebViewLoginFragment : BaseFragment() {
         wv_course.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
+                Log.d("web_view_url", "url: ${wv_course.url}")
+                if (wv_course.url != url) {
+                    if ("http://jwgl.wfust.edu.cn/wfkjjw/MainFrm.html" in wv_course.url) {
+                        fab_import.callOnClick()
+                    }
+                    fab_import.visibility = View.VISIBLE
+                }
+
                 if (newProgress == 100) {
                     pb_load.progress = newProgress
                     pb_load.visibility = View.GONE
@@ -181,41 +189,41 @@ class WebViewLoginFragment : BaseFragment() {
 
         chip_zoom.setOnClickListener {
             val dialog = MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("设置缩放")
-                    .setView(R.layout.dialog_edit_text)
+                    .setTitle("文字缩放：$zoom%")
+                    .setView(R.layout.dialog_edit_seekbar)
                     .setNegativeButton(R.string.cancel, null)
+                    .setNeutralButton("默认", null)
                     .setPositiveButton(R.string.sure, null)
+                    .setCancelable(true)
                     .create()
             dialog.show()
-            val inputLayout = dialog.findViewById<TextInputLayout>(R.id.text_input_layout)
-            val editText = dialog.findViewById<TextInputEditText>(R.id.edit_text)
-            inputLayout?.helperText = "范围 10 ~ 200"
-            inputLayout?.suffixText = "%"
-            editText?.inputType = InputType.TYPE_CLASS_NUMBER
-            val valueStr = zoom.toString()
-            editText?.setText(valueStr)
-            editText?.setSelection(valueStr.length)
+            val seekBar = dialog.findViewById<SeekBar>(R.id.seek_bar)
+            seekBar?.let {
+                it.max = 190
+                it.progress = zoom - 10
+                it.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                        dialog.setTitle("文字缩放：${seekBar?.progress?.plus(10)}%")
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    }
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    }
+                })
+            }
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                val value = editText?.text
-                if (value.isNullOrBlank()) {
-                    inputLayout?.error = "数值不能为空哦>_<"
-                    return@setOnClickListener
-                }
-                val valueInt = try {
-                    value.toString().toInt()
-                } catch (e: Exception) {
-                    inputLayout?.error = "输入异常>_<"
-                    return@setOnClickListener
-                }
-                if (valueInt < 10 || valueInt > 200) {
-                    inputLayout?.error = "注意范围 10 ~ 200"
-                    return@setOnClickListener
-                }
+                val process = seekBar?.progress
+                val valueInt = process?.plus(10)!!
                 zoom = valueInt
                 wv_course.settings.textZoom = zoom
                 chip_zoom.text = "文字缩放 $zoom%"
                 wv_course.reload()
                 dialog.dismiss()
+            }
+            dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setOnClickListener {
+                seekBar?.progress = 90
             }
         }
 
@@ -359,16 +367,28 @@ class WebViewLoginFragment : BaseFragment() {
                     countClick = 0
                 }
             } else if (viewModel.importType == Common.TYPE_QINGGUO) {
+                Log.d("urll", "initEvent: $countClick")
                 if (countClick == 0) {
                     val referjs = "javascript:window.location.href = \"http://jwgl.wfust.edu.cn/wfkjjw/student/xkjg.wdkb.jsp?menucode=S20301\""
-                    wv_course.loadUrl(referjs)
-                    it.longSnack("请等待网页加载完成，选择学年学期后再点一次右下角按钮")
-                    countClick++
+                    if ("http://jwgl.wfust.edu.cn/wfkjjw/MainFrm.html" in wv_course.url) {
+                        wv_course.loadUrl(referjs)
+                        it.longSnack("请等待网页加载完成，选择学年学期后再点一次右下角按钮")
+                        countClick++
+                    } else {
+                        countClick = 0
+                    }
                 } else if (countClick == 1) {
+                    fab_import.icon = resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_right_24)
                     val qingguojs = "javascript:window.location.href = document.getElementsByTagName(\"iframe\")[0].src;"
-                    wv_course.loadUrl(qingguojs)
-                    it.longSnack("请等待网页加载完成，再点一次右下角按钮")
-                    countClick++
+                    if ("http://jwgl.wfust.edu.cn/wfkjjw/student/xkjg.wdkb.jsp" in wv_course.url) {
+                        wv_course.loadUrl(qingguojs)
+                        fab_import.icon = null
+                        fab_import.text = "\uE6E2"
+                        it.longSnack("请等待网页加载完成，再点一次右下角按钮")
+                        countClick++
+                    } else {
+                        countClick = 1
+                    }
                 } else {
                     wv_course.loadUrl("javascript:window.local_obj.showSource(document.getElementsByTagName('html')[0].innerHTML);")
                 }
@@ -379,6 +399,12 @@ class WebViewLoginFragment : BaseFragment() {
 
         btn_back.setOnClickListener {
             if (wv_course.canGoBack()) {
+                if (countClick > 0) {
+                    fab_import.icon = resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_right_24)
+                    countClick--
+                } else {
+                    countClick = 0
+                }
                 wv_course.goBack()
             }
         }
