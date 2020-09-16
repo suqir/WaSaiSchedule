@@ -1,6 +1,5 @@
 package com.suqir.wasaischedule.ui.apply_info
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.suqir.wasaischedule.logic.Repository
@@ -11,7 +10,6 @@ class ApplyInfoViewModel : ViewModel() {
     val gson = Gson()
     val filterList = arrayListOf<ApplySchoolResponse.ApplySchool>()
     val countList = arrayListOf<ApplySchoolResponse.ApplySchool>()
-    val countInfo = MutableLiveData<String>()
 
     fun initData() = Repository.getApplySchool()
 

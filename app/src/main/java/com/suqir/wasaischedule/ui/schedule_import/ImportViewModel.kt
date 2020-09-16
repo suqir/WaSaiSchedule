@@ -7,7 +7,7 @@ import android.util.SparseArray
 import androidx.lifecycle.AndroidViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.suqir.wasaischedule.App
+import com.suqir.wasaischedule.SampleApplication
 import com.suqir.wasaischedule.logic.Repository
 import com.suqir.wasaischedule.logic.bean.*
 import com.suqir.wasaischedule.logic.database.AppDatabase
@@ -699,7 +699,7 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
         if (uri == null) throw Exception("读取文件失败")
         val gson = Gson()
         val list = withContext(Dispatchers.IO) {
-            getApplication<App>().contentResolver.openInputStream(uri)!!.bufferedReader().readLines()
+            getApplication<SampleApplication>().contentResolver.openInputStream(uri)!!.bufferedReader().readLines()
         }
         val timeTable = gson.fromJson<TimeTableBean>(list[0], object : TypeToken<TimeTableBean>() {}.type)
         val timeDetails = gson.fromJson<List<TimeDetailBean>>(list[1], object : TypeToken<List<TimeDetailBean>>() {}.type)
@@ -733,11 +733,11 @@ class ImportViewModel(application: Application) : AndroidViewModel(application) 
     suspend fun importFromExcel(uri: Uri?): Int {
         if (uri == null) throw Exception("读取文件失败")
         val source = withContext(Dispatchers.IO) {
-            val text = getApplication<App>().contentResolver.openInputStream(uri)!!.bufferedReader(Charset.forName("gbk")).readText()
+            val text = getApplication<SampleApplication>().contentResolver.openInputStream(uri)!!.bufferedReader(Charset.forName("gbk")).readText()
             if (text.startsWith("课程名称")) {
                 text
             } else {
-                getApplication<App>().contentResolver.openInputStream(uri)!!.bufferedReader().readText()
+                getApplication<SampleApplication>().contentResolver.openInputStream(uri)!!.bufferedReader().readText()
             }
         }
         val parser = CSVParser(source)

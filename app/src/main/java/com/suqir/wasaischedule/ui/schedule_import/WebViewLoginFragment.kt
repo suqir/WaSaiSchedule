@@ -95,7 +95,7 @@ class WebViewLoginFragment : BaseFragment() {
 
         if (viewModel.school == "潍坊科技学院") {
             fab_import.visibility = View.INVISIBLE
-            tips = "1.首先登录教务系统\n2.登陆成功后直接点击右下角按钮，软件自动跳转到课表选择页面\n3.学期选择完成后，再次点击右下角按钮查看课表\n4.确认无误后，最后一次点击右下角按钮进行导入\n5.若在步骤1-4中某一步出错，你需要重新进入此页面重复步骤1-4"
+            tips = "1.首先登录教务系统\n2.登陆成功后软件将自动跳转到课表选择页面\n3.学年学期选择完成后，点击右下角按钮预览课表\n4.确认无误后，再点击右下角按钮进行导入"
         }
 
         if (viewModel.importType == Common.TYPE_HNUST) {
@@ -368,6 +368,7 @@ class WebViewLoginFragment : BaseFragment() {
                 }
             } else if (viewModel.importType == Common.TYPE_QINGGUO) {
                 Log.d("urll", "initEvent: $countClick")
+                fab_import.icon = resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_right_24)
                 if (countClick == 0) {
                     val referjs = "javascript:window.location.href = \"http://jwgl.wfust.edu.cn/wfkjjw/student/xkjg.wdkb.jsp?menucode=S20301\""
                     if ("http://jwgl.wfust.edu.cn/wfkjjw/MainFrm.html" in wv_course.url) {
@@ -378,7 +379,6 @@ class WebViewLoginFragment : BaseFragment() {
                         countClick = 0
                     }
                 } else if (countClick == 1) {
-                    fab_import.icon = resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_right_24)
                     val qingguojs = "javascript:window.location.href = document.getElementsByTagName(\"iframe\")[0].src;"
                     if ("http://jwgl.wfust.edu.cn/wfkjjw/student/xkjg.wdkb.jsp" in wv_course.url) {
                         wv_course.loadUrl(qingguojs)

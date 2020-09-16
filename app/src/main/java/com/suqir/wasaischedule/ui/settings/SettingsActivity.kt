@@ -110,7 +110,6 @@ class SettingsActivity : BaseListActivity(), ColorPickerFragment.ColorPickerDial
 
         items.add(CategoryItem("常规", false))
         items.add(HorizontalItem("课表设置", tableName))
-        items.add(SwitchItem("自动检查更新", getPrefer().getBoolean(Const.KEY_CHECK_UPDATE, true)))
         items.add(SwitchItem("节数栏显示具体时间", getPrefer().getBoolean(Const.KEY_SCHEDULE_DETAIL_TIME, true), ""))
         items.add(SwitchItem("页面预加载", getPrefer().getBoolean(Const.KEY_SCHEDULE_PRE_LOAD, true), "开启后，滑动界面后会马上显示课表。关闭后，滑动界面后需要短暂的时间加载课表，不过理论上内存占用会更小，App启动速度也会更快。"))
         items.add(SwitchItem("课表下方增加留白区域", getPrefer().getBoolean(Const.KEY_SCHEDULE_BLANK_AREA, true), "开启后，课表下方会多出一段空白区域，便于将底部的课程滑动至屏幕中间查看。"))
@@ -129,11 +128,6 @@ class SettingsActivity : BaseListActivity(), ColorPickerFragment.ColorPickerDial
 
     private fun onSwitchItemCheckChange(item: SwitchItem, isChecked: Boolean) {
         when (item.title) {
-            "自动检查更新" -> {
-                getPrefer().edit {
-                    putBoolean(Const.KEY_CHECK_UPDATE, isChecked)
-                }
-            }
             "页面预加载" -> {
                 getPrefer().edit {
                     putBoolean(Const.KEY_SCHEDULE_PRE_LOAD, isChecked)

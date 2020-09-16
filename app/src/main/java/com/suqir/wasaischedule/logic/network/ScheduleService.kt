@@ -2,7 +2,7 @@ package com.suqir.wasaischedule.logic.network
 
 import com.suqir.wasaischedule.logic.model.ApplySchoolResponse
 import com.suqir.wasaischedule.logic.model.DonateResponse
-import com.suqir.wasaischedule.logic.model.UpdateInfoResponse
+import com.suqir.wasaischedule.logic.model.NoticeResponse
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Field
@@ -20,8 +20,8 @@ interface ScheduleService {
     @GET("v1/donates")
     fun getDonateList(): Call<DonateResponse>
 
-    @GET("v1/update")
-    fun getUpdateInfo(): Call<UpdateInfoResponse>
+    @GET("v1/notices")
+    fun getNoticeInfo(): Call<NoticeResponse>
 
     @GET("v1/applies")
     fun getApplySchool(): Call<ApplySchoolResponse>

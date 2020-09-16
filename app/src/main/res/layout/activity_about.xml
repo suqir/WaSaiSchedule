@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ui.intro.AboutActivity">
+    tools:context=".ui.about.AboutActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="72dp"
@@ -47,7 +47,7 @@
         android:paddingLeft="48dp"
         android:paddingRight="48dp"
         android:paddingBottom="16dp"
-        android:text="软件基于开源项目WakeUp课程表开发\n项目开源地址\nhttps://github.com/suqir/WaSaiSchedule"
+        android:text="基于开源项目WakeUp课程表开发\n项目开源地址\nhttps://github.com/suqir/WaSaiSchedule"
         android:textSize="12sp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

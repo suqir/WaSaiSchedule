@@ -12,8 +12,8 @@ import biweekly.ICalVersion
 import biweekly.ICalendar
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.suqir.wasaischedule.App
 import com.suqir.wasaischedule.R
+import com.suqir.wasaischedule.SampleApplication
 import com.suqir.wasaischedule.logic.Repository
 import com.suqir.wasaischedule.logic.bean.*
 import com.suqir.wasaischedule.logic.database.AppDatabase
@@ -50,7 +50,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     var mMonth = 9
     var mDay = 20
 
-    fun getUpdateInfo() = Repository.getUpdateInfo()
+    fun getNoticeInfo() = Repository.getNoticeInfo()
 
     fun initTableSelectList(): LiveData<List<TableSelectBean>> {
         return tableDao.getTableSelectListLiveData()
@@ -162,7 +162,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
             }
         }
         courseDao.insertCourses(baseList, detailList)
-        getApplication<App>().getPrefer().edit {
+        getApplication<SampleApplication>().getPrefer().edit {
             remove(Const.KEY_OLD_VERSION_COURSE)
         }
     }
@@ -170,7 +170,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
     suspend fun exportData(uri: Uri?) {
         val gson = Gson()
         val strBuilder = StringBuilder()
-        val outputStream = getApplication<App>().contentResolver.openOutputStream(uri
+        val outputStream = getApplication<SampleApplication>().contentResolver.openOutputStream(uri
                 ?: throw Exception("无法获取文件"))
         strBuilder.append(gson.toJson(timeTableDao.getTimeTable(table.timeTable)))
         strBuilder.append("\n${gson.toJson(timeList)}")
@@ -203,7 +203,7 @@ class ScheduleViewModel(application: Application) : AndroidViewModel(application
         }
         val warnings = ical.validate(ICalVersion.V2_0)
         Log.d("日历", warnings.toString())
-        val outputStream = getApplication<App>().contentResolver.openOutputStream(uri)
+        val outputStream = getApplication<SampleApplication>().contentResolver.openOutputStream(uri)
         withContext(Dispatchers.IO) {
             Biweekly.write(ical).go(outputStream)
         }

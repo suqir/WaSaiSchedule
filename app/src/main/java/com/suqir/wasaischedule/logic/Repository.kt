@@ -3,7 +3,7 @@ package com.suqir.wasaischedule.logic
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.liveData
-import com.suqir.wasaischedule.App.Companion.context
+import com.suqir.wasaischedule.SampleApplicationLike.Companion.context
 import com.suqir.wasaischedule.logic.bean.TableBean
 import com.suqir.wasaischedule.logic.database.AppDatabase
 import com.suqir.wasaischedule.logic.model.StudentScheduleResponse
@@ -25,8 +25,8 @@ object Repository {
     private val tableDao = dataBase.tableDao()
     private val courseDao = dataBase.courseDao()
 
-    fun getUpdateInfo() = fire(Dispatchers.IO) {
-        val response = WaSaiNetwork.getUpdateInfo()
+    fun getNoticeInfo() = fire(Dispatchers.IO) {
+        val response = WaSaiNetwork.getNoticeInfo()
         if (response.status == "success") {
             Result.success(response.data)
         } else {

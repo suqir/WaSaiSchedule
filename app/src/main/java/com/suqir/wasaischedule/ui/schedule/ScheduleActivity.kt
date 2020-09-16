@@ -38,17 +38,16 @@ import com.suqir.wasaischedule.R
 import com.suqir.wasaischedule.logic.bean.TableBean
 import com.suqir.wasaischedule.logic.bean.TableSelectBean
 import com.suqir.wasaischedule.ui.DonateFragment
-import com.suqir.wasaischedule.ui.UpdateFragment
+import com.suqir.wasaischedule.ui.NoticeFragment
+import com.suqir.wasaischedule.ui.about.AboutActivity
 import com.suqir.wasaischedule.ui.base_view.BaseActivity
 import com.suqir.wasaischedule.ui.course_add.AddCourseActivity
-import com.suqir.wasaischedule.ui.intro.AboutActivity
 import com.suqir.wasaischedule.ui.schedule_manage.ScheduleManageActivity
 import com.suqir.wasaischedule.ui.schedule_settings.ScheduleSettingsActivity
 import com.suqir.wasaischedule.ui.settings.SettingsActivity
 import com.suqir.wasaischedule.ui.settings.TimeSettingsActivity
 import com.suqir.wasaischedule.ui.weike_life.WeikeLifeActivity
 import com.suqir.wasaischedule.utils.*
-import com.suqir.wasaischedule.utils.UpdateUtils.getVersionCode
 import es.dmoral.toasty.Toasty
 import it.sephiroth.android.library.xtooltip.Tooltip
 import kotlinx.android.synthetic.main.activity_schedule.*
@@ -118,20 +117,15 @@ class ScheduleActivity : BaseActivity() {
             }
         }
 
-//        if (!getPrefer().getBoolean(Const.KEY_HAS_COUNT, false)) {
-//            MyRetrofitUtils.instance.addCount(applicationContext)
-//        }
-
-        if (getPrefer().getBoolean(Const.KEY_CHECK_UPDATE, true)) {
-            viewModel.getUpdateInfo().observe(this, Observer { result ->
-                val updateInfo = result.getOrNull()
-                if (updateInfo != null) {
-                    if (updateInfo.version_code > getVersionCode(this@ScheduleActivity.applicationContext)) {
-                        UpdateFragment.newInstance(updateInfo).show(supportFragmentManager, "updateDialog")
-                    }
+        viewModel.getNoticeInfo().observe(this, Observer { result ->
+            val noticeInfo = result.getOrNull()
+            if (noticeInfo != null) {
+                if (noticeInfo.notice_id > getPrefer().getInt(Const.KEY_NOTICE_ID, 0)) {
+                    getPrefer().edit().putInt(Const.KEY_NOTICE_ID, noticeInfo.notice_id).apply()
+                    NoticeFragment.newInstance(noticeInfo).show(supportFragmentManager, "noticeDialog")
                 }
-            })
-        }
+            }
+        })
 
         viewModel.initTableSelectList().observe(this, Observer {
             if (it == null) return@Observer

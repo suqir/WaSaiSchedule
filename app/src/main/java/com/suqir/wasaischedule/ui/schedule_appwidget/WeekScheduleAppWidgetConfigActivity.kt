@@ -43,7 +43,6 @@ class WeekScheduleAppWidgetConfigActivity : BaseBlurTitleActivity() {
         }
 
         val appWidgetManager = AppWidgetManager.getInstance(applicationContext)
-        //Log.d("包名", appWidgetManager.getAppWidgetInfo(mAppWidgetId).provider.shortClassName)
         val what = appWidgetManager.getAppWidgetInfo(mAppWidgetId).provider.shortClassName
         isTodayType = (what == "com.suqir.wasaischedule.ui.today_appwidget.TodayCourseAppWidget")
         if (isTodayType) {

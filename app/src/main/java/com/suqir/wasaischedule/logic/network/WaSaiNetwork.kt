@@ -19,7 +19,7 @@ object WaSaiNetwork {
     private val jxzlService = ServiceCreator.jxzlCreate<JxzlService>()
 
     // WaSaiSchedule部分
-    suspend fun getUpdateInfo() = scheduleService.getUpdateInfo().await()
+    suspend fun getNoticeInfo() = scheduleService.getNoticeInfo().await()
     suspend fun getDonateList() = scheduleService.getDonateList().await()
     suspend fun postHtml(school: String, type: String, html: String, qq: String) = scheduleService.postHtml(school, type, html, qq).await()
     suspend fun addHtml(school: String, type: String, html: String, qq: String, count: Int) = scheduleService.addHtml(school, type, html, qq, count).await()
