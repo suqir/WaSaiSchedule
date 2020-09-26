@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.http.SslError
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -140,28 +139,36 @@ class WebViewLoginFragment : BaseFragment() {
                         .show()
             }
 
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                // 隐藏网页中的干扰元素
+                if ("http://jwgl.wfust.edu.cn/wfkjjw/student/xkjg.wdkb.jsp" in wv_course.url) {
+                    view?.evaluateJavascript("javascript:document.getElementById(\"cxfs_lb\").style.display=\"none\";", null)
+                    view?.evaluateJavascript("javascript:document.getElementById(\"divButton\").style.display=\"none\";", null)
+                }
+            }
+
         }
         wv_course.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
-                Log.d("web_view_url", "url: ${wv_course.url}")
-                if (wv_course.url != url) {
-                    if ("http://jwgl.wfust.edu.cn/wfkjjw/MainFrm.html" in wv_course.url) {
-                        fab_import.callOnClick()
-                    }
-                    fab_import.visibility = View.VISIBLE
-                }
 
                 if (newProgress == 100) {
                     pb_load.progress = newProgress
                     pb_load.visibility = View.GONE
-                    // Toasty.info(requireActivity(), wv_course.url, Toast.LENGTH_LONG).show()
+                    if (url != view?.url) {
+                        if (view?.url?.contains("http://jwgl.wfust.edu.cn/wfkjjw/MainFrm.html")!!) {
+                            fab_import.callOnClick()
+                        }
+                        fab_import.visibility = View.VISIBLE
+                    }
                 } else {
                     pb_load.progress = newProgress * 5
                     pb_load.visibility = View.VISIBLE
                 }
             }
         }
+
         // 设置自适应屏幕，两者合用
         wv_course.settings.useWideViewPort = true //将图片调整到适合WebView的大小
         wv_course.settings.loadWithOverviewMode = true // 缩放至屏幕的大小
@@ -367,7 +374,6 @@ class WebViewLoginFragment : BaseFragment() {
                     countClick = 0
                 }
             } else if (viewModel.importType == Common.TYPE_QINGGUO) {
-                Log.d("urll", "initEvent: $countClick")
                 fab_import.icon = resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_right_24)
                 if (countClick == 0) {
                     val referjs = "javascript:window.location.href = \"http://jwgl.wfust.edu.cn/wfkjjw/student/xkjg.wdkb.jsp?menucode=S20301\""
